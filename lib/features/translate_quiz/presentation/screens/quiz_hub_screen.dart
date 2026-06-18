@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../core/constants/app_colors.dart';
 
 class QuizHubScreen extends StatelessWidget {
   const QuizHubScreen({super.key});
@@ -50,11 +51,7 @@ class QuizHubScreen extends StatelessWidget {
       width: double.infinity,
       height: 64,
       decoration: BoxDecoration(
-        gradient: const LinearGradient(
-          colors: [Color(0xFF8BB5F5), Color(0xFF4A72B2)],
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-        ),
+        gradient: AppColors.primaryGradient,
         borderRadius: BorderRadius.circular(32),
         boxShadow: [
           BoxShadow(

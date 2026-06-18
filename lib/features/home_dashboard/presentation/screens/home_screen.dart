@@ -1,3 +1,4 @@
+import 'package:bible_quiz_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../core/services/secure_storage_service.dart';
@@ -32,17 +33,17 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         height: 68,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          gradient: const LinearGradient(
-            colors: [Color(0xFF5A84C3), Color(0xFF01369F)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+          gradient: const RadialGradient(
+            colors: [Color(0xFF4B49EB), Color(0xFF2D2BA7)], // Radial blue gradient
+            radius: 0.8,
+            center: Alignment.topLeft,
           ),
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFF01369F).withValues(alpha: 0.35),
-              blurRadius: 12,
-              spreadRadius: 2,
-              offset: const Offset(0, 4),
+              color: const Color(0xFF2D2BA7).withValues(alpha: 0.5),
+              blurRadius: 16, // Increased blur for larger shadow
+              spreadRadius: 4, // Increased spread
+              offset: const Offset(0, 6),
             ),
           ],
         ),
@@ -53,16 +54,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               _currentTab = 2; // Set tab to Quiz
             });
           },
-          child: const Column(
+          child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                Icons.star, // Spark/star icon matching the Figma image
-                color: Colors.white,
-                size: 26,
+              Image.asset(
+                'assets/images/star.png',
+                width: 26,
+                height: 26,
+                color: Colors
+                    .white, // Ensure it's white if it's an outline or solid shape
               ),
-              SizedBox(height: 2),
-              Text(
+              const SizedBox(height: 2),
+              const Text(
                 'Quiz',
                 style: TextStyle(
                   color: Colors.white,
@@ -117,7 +120,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   children: [
                     _buildTabItem(
                       index: 3,
-                      icon: Icons.bar_chart_outlined,
+                      icon: Icons.leaderboard_outlined,
                       activeIcon: Icons.bar_chart,
                       label: 'Rank',
                     ),
@@ -161,7 +164,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     required String label,
   }) {
     final isActive = _currentTab == index;
-    final color = isActive ? const Color(0xFF01369F) : Colors.grey.shade400;
+    final color = isActive ? const Color(0xFF2D2BA7) : Colors.grey.shade400;
 
     return InkWell(
       onTap: () {

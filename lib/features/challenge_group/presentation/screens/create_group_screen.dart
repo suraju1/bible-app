@@ -157,11 +157,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                         height: 56,
                         child: Container(
                           decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              colors: [Color(0xFF8BB5F5), Color(0xFF4A72B2)],
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight,
-                            ),
+                            gradient: AppColors.primaryGradient,
                             borderRadius: BorderRadius.circular(28),
                           ),
                           child: ElevatedButton(
@@ -275,12 +271,17 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
               ],
             ),
           ),
-          SizedBox(
+          Container(
             height: 32,
+            decoration: BoxDecoration(
+              gradient: AppColors.primaryGradient,
+              borderRadius: BorderRadius.circular(16),
+            ),
             child: ElevatedButton(
               onPressed: () {},
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color(0xFF8BB5F5),
+                backgroundColor: Colors.transparent,
+                shadowColor: Colors.transparent,
                 foregroundColor: Colors.white,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                 padding: const EdgeInsets.symmetric(horizontal: 20),

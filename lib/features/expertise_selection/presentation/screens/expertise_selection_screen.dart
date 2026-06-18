@@ -78,16 +78,18 @@ class _ExpertiseSelectionScreenState extends ConsumerState<ExpertiseSelectionScr
                     child: IconButton(
                       icon: const Icon(Icons.arrow_back_ios_new, size: 16, color: Colors.black54),
                       onPressed: () {
-                        if (context.canPop()) context.pop();
+                        if (context.canPop()) {
+                          context.pop();
+                        } else {
+                          context.go('/language-selection');
+                        }
                       },
                     ),
                   ),
                   const Text('Expertise', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary)),
-                  CircleAvatar(
-                    backgroundColor: Colors.grey.shade300,
-                    radius: 20,
-                    child: TextButton(
-                      onPressed: () async {
+                  TextButton(
+                    onPressed: () async {
+                      try {
                         final prefs = await SharedPreferences.getInstance();
                         await prefs.setBool('has_selected_expertise', true);
 
@@ -99,9 +101,22 @@ class _ExpertiseSelectionScreenState extends ConsumerState<ExpertiseSelectionScr
                             context.go('/auth-selection');
                           }
                         }
-                      },
-                      child: const Text('Skip', style: TextStyle(fontSize: 12, color: Colors.black54)),
+                      } catch (e) {
+                        if (context.mounted) {
+                          context.go('/auth-selection');
+                        }
+                      }
+                    },
+                    style: TextButton.styleFrom(
+                      backgroundColor: Colors.grey.shade300,
+                      foregroundColor: Colors.black54,
+                      minimumSize: const Size(56, 40),
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
                     ),
+                    child: const Text('Skip', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
                   ),
                 ],
               ),
@@ -130,26 +145,40 @@ class _ExpertiseSelectionScreenState extends ConsumerState<ExpertiseSelectionScr
             // Continue Button
             Padding(
               padding: const EdgeInsets.all(20.0),
-              child: ElevatedButton(
-                onPressed: saveState.isLoading
-                    ? null
-                    : () {
-                        // Sync text controllers with provider before saving
-                        ref.read(expertiseEducationProvider.notifier).state = _educationController.text;
-                        ref.read(expertiseAgeProvider.notifier).state = _ageController.text;
-                        ref.read(saveExpertiseProvider.notifier).save();
-                      },
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  backgroundColor: AppColors.primary,
-                  disabledBackgroundColor: Colors.grey.shade300,
-                ),
-                child: saveState.isLoading
-                    ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
-                    : const Text('Continue', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              child: Builder(
+                builder: (context) {
+                  final isButtonDisabled = saveState.isLoading;
+                  return Container(
+                    width: double.infinity,
+                    height: 56,
+                    decoration: BoxDecoration(
+                      gradient: isButtonDisabled ? null : AppColors.primaryGradient,
+                      color: isButtonDisabled ? Colors.grey.shade300 : null,
+                      borderRadius: BorderRadius.circular(28),
+                    ),
+                    child: ElevatedButton(
+                      onPressed: isButtonDisabled
+                          ? null
+                          : () {
+                              // Sync text controllers with provider before saving
+                              ref.read(expertiseEducationProvider.notifier).state = _educationController.text;
+                              ref.read(expertiseAgeProvider.notifier).state = _ageController.text;
+                              ref.read(saveExpertiseProvider.notifier).save();
+                            },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.transparent,
+                        shadowColor: Colors.transparent,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(28),
+                        ),
+                      ),
+                      child: saveState.isLoading
+                          ? const SizedBox(height: 20, width: 20, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
+                          : const Text('Continue', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                    ),
+                  );
+                }
               ),
             ),
           ],
@@ -294,8 +323,10 @@ class _ExpertiseSelectionScreenState extends ConsumerState<ExpertiseSelectionScr
               const SizedBox(height: 8),
               TextField(
                 controller: _educationController,
+                style: const TextStyle(color: AppColors.textPrimary),
                 decoration: InputDecoration(
                   hintText: 'e.g., 10th',
+                  hintStyle: const TextStyle(color: Colors.grey),
                   filled: true,
                   fillColor: Colors.white,
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
@@ -328,8 +359,10 @@ class _ExpertiseSelectionScreenState extends ConsumerState<ExpertiseSelectionScr
               TextField(
                 controller: _ageController,
                 keyboardType: TextInputType.number,
+                style: const TextStyle(color: AppColors.textPrimary),
                 decoration: InputDecoration(
                   hintText: '20',
+                  hintStyle: const TextStyle(color: Colors.grey),
                   filled: true,
                   fillColor: Colors.white,
                   contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),

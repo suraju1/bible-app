@@ -12,6 +12,17 @@ class AppColors {
   static const Color secondary = Color(0xFFF39C12); // Gold/Orange
   static const Color secondaryLight = Color(0xFFF7C066);
 
+  // Vibrant Brand Colors (Based on Gradient Image)
+  static const Color vibrantCyan = Color(0xFF4FB5DF);
+  static const Color vibrantIndigo = Color(0xFF221272);
+
+  // Global Gradients
+  static const LinearGradient primaryGradient = LinearGradient(
+    colors: [vibrantCyan, vibrantIndigo],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
+
   // Background and Surface
   static const Color background = Color(0xFFF8F9FA);
   static const Color surface = Colors.white;

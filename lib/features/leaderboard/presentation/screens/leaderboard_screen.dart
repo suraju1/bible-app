@@ -4,8 +4,11 @@ import '../../../../core/constants/app_colors.dart';
 import '../../domain/entities/leaderboard_filter.dart';
 import '../providers/leaderboard_provider.dart';
 import '../widgets/leaderboard_podium.dart';
-import '../widgets/leaderboard_list_item.dart';
 import '../widgets/user_rank_details_popup.dart';
+import '../widgets/leaderboard_skeleton.dart';
+import '../widgets/filter_chip_dropdown.dart';
+import '../widgets/user_rank_tile.dart';
+import '../widgets/current_user_card.dart';
 
 class LeaderboardScreen extends ConsumerWidget {
   const LeaderboardScreen({Key? key}) : super(key: key);
@@ -17,13 +20,9 @@ class LeaderboardScreen extends ConsumerWidget {
 
     return Container(
       decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color(0xFF8BB5F5), // Light sky blue
-            Color(0xFF3A3B8B), // Deep purple/blue
-          ],
+        image: DecorationImage(
+          image: AssetImage('assets/images/Gradient.png'),
+          fit: BoxFit.cover,
         ),
       ),
       child: Column(
@@ -39,7 +38,7 @@ class LeaderboardScreen extends ConsumerWidget {
                   Container(
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: Colors.black.withValues(alpha: 0.15),
+                      color: Colors.black.withOpacity(0.15),
                     ),
                     child: IconButton(
                       icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 20),
@@ -69,9 +68,7 @@ class LeaderboardScreen extends ConsumerWidget {
           // Main Content
           Expanded(
             child: leaderboardState.when(
-              loading: () => const Center(
-                child: CircularProgressIndicator(color: Colors.white),
-              ),
+              loading: () => const LeaderboardSkeleton(),
               error: (err, stack) => Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -101,7 +98,7 @@ class LeaderboardScreen extends ConsumerWidget {
                   children: [
                     // The Podium placed BEHIND the white container
                     Positioned(
-                      top: 10,
+                      top: 54,
                       left: 0,
                       right: 0,
                       child: LeaderboardPodium(topUsers: top3),
@@ -109,7 +106,7 @@ class LeaderboardScreen extends ConsumerWidget {
 
                     // The White Container for the List
                     Positioned.fill(
-                      top: 210, // Overlaps bottom of podium pillars
+                      top: 254, // Overlaps bottom of podium pillars
                       child: Container(
                         decoration: BoxDecoration(
                           color: Colors.grey.shade50,
@@ -118,16 +115,18 @@ class LeaderboardScreen extends ConsumerWidget {
                         child: Column(
                           children: [
                             const SizedBox(height: 24),
+                            const _SegmentedControl(),
+                            const SizedBox(height: 16),
                             _buildFilterSection(ref, filter),
-                            const SizedBox(height: 12),
+                            const SizedBox(height: 16),
                             // List View
                             Expanded(
                               child: ListView.builder(
-                                padding: const EdgeInsets.only(bottom: 100), // Space for pinned row
+                                padding: const EdgeInsets.only(bottom: 120), // Space for pinned row
                                 itemCount: rest.length,
                                 itemBuilder: (context, index) {
                                   final user = rest[index];
-                                  return LeaderboardListItem(
+                                  return UserRankTile(
                                     user: user,
                                     onTap: () => UserRankDetailsPopup.show(context, user),
                                   );
@@ -158,9 +157,8 @@ class LeaderboardScreen extends ConsumerWidget {
                           ),
                         ),
                         padding: const EdgeInsets.only(top: 24),
-                        child: LeaderboardListItem(
+                        child: CurrentUserCard(
                           user: currentUser,
-                          isPinnedBottom: true,
                           onTap: () => UserRankDetailsPopup.show(context, currentUser),
                         ),
                       ),
@@ -181,11 +179,10 @@ class LeaderboardScreen extends ConsumerWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _buildDropdownFilter('Language', Icons.keyboard_arrow_down),
-          _buildDropdownFilter('English', Icons.keyboard_arrow_down),
-          _buildDropdownFilter(
-            currentFilter.timeframe.name.substring(0, 1).toUpperCase() + currentFilter.timeframe.name.substring(1),
-            Icons.keyboard_arrow_down,
+          const FilterChipDropdown(label: 'Language'),
+          const FilterChipDropdown(label: 'English'),
+          FilterChipDropdown(
+            label: currentFilter.timeframe.name.substring(0, 1).toUpperCase() + currentFilter.timeframe.name.substring(1),
             onTap: () {
               // Cycle timeframe for demo purposes
               final next = currentFilter.timeframe == TimeframeFilter.daily
@@ -198,38 +195,73 @@ class LeaderboardScreen extends ConsumerWidget {
       ),
     );
   }
+}
 
-  Widget _buildDropdownFilter(String label, IconData icon, {VoidCallback? onTap}) {
-    return GestureDetector(
-      onTap: onTap,
+class _SegmentedControl extends StatefulWidget {
+  const _SegmentedControl({Key? key}) : super(key: key);
+
+  @override
+  _SegmentedControlState createState() => _SegmentedControlState();
+}
+
+class _SegmentedControlState extends State<_SegmentedControl> {
+  int _selectedIndex = 0; // 0 for Sponsor, 1 for Rewards
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+        height: 48,
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: Colors.grey.shade300),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.02),
-              blurRadius: 4,
-              offset: const Offset(0, 2),
+          color: Colors.grey.shade100, // Light gray background
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(color: Colors.grey.shade200),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: GestureDetector(
+                onTap: () => setState(() => _selectedIndex = 0),
+                child: _buildSegment('Sponsor', _selectedIndex == 0),
+              ),
+            ),
+            Expanded(
+              child: GestureDetector(
+                onTap: () => setState(() => _selectedIndex = 1),
+                child: _buildSegment('Rewards', _selectedIndex == 1),
+              ),
             ),
           ],
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              label,
-              style: const TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.w600,
-                fontSize: 14,
-              ),
-            ),
-            const SizedBox(width: 4),
-            Icon(icon, color: Colors.black54, size: 18),
-          ],
+      ),
+    );
+  }
+
+  Widget _buildSegment(String title, bool isActive) {
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 200),
+      margin: const EdgeInsets.all(4),
+      decoration: BoxDecoration(
+        color: isActive ? Colors.white : Colors.transparent,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: isActive
+            ? [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.05),
+                  blurRadius: 4,
+                  offset: const Offset(0, 2),
+                ),
+              ]
+            : [],
+      ),
+      alignment: Alignment.center,
+      child: Text(
+        title,
+        style: TextStyle(
+          color: isActive ? Colors.black87 : Colors.grey.shade600,
+          fontWeight: isActive ? FontWeight.bold : FontWeight.w500,
+          fontSize: 14,
         ),
       ),
     );

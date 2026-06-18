@@ -20,13 +20,9 @@ class _BattlesScreenState extends ConsumerState<BattlesScreen> {
       backgroundColor: Colors.grey.shade50,
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFF8BB5F5), // Light sky blue
-              Color(0xFF3A3B8B), // Deep purple/blue
-            ],
+          image: DecorationImage(
+            image: AssetImage('assets/images/Gradient.png'),
+            fit: BoxFit.cover,
           ),
         ),
         child: Column(
@@ -127,7 +123,8 @@ class _BattlesScreenState extends ConsumerState<BattlesScreen> {
           margin: const EdgeInsets.symmetric(horizontal: 4.0),
           padding: const EdgeInsets.symmetric(vertical: 12.0),
           decoration: BoxDecoration(
-            color: isSelected ? const Color(0xFF4A72B2) : Colors.white,
+            color: isSelected ? null : Colors.white,
+            gradient: isSelected ? AppColors.primaryGradient : null,
             borderRadius: BorderRadius.circular(24),
             border: Border.all(
               color: isSelected ? Colors.transparent : Colors.grey.shade300,

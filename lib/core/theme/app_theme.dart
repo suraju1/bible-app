@@ -9,7 +9,7 @@ class AppTheme {
   static ThemeData get lightTheme {
     final baseTextTheme = ThemeData.light().textTheme;
     return ThemeData(
-      fontFamily: 'Poppins',
+      fontFamily: GoogleFonts.poppins().fontFamily,
       primaryColor: AppColors.primary,
       scaffoldBackgroundColor: AppColors.background,
       colorScheme: const ColorScheme.light(
@@ -46,7 +46,7 @@ class AppTheme {
   static ThemeData get darkTheme {
     final baseTextTheme = ThemeData.dark().textTheme;
     return ThemeData(
-      fontFamily: 'Poppins',
+      fontFamily: GoogleFonts.poppins().fontFamily,
       primaryColor: AppColors.primaryDark,
       scaffoldBackgroundColor: AppColors.backgroundDark,
       colorScheme: const ColorScheme.dark(

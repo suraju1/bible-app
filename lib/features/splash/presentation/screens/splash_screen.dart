@@ -28,13 +28,9 @@ class SplashScreen extends ConsumerWidget {
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFF5A84C3), // Lighter blue from the top of the Figma image
-              Color(0xFF383688), // Darker purplish-blue from the bottom
-            ],
+          image: DecorationImage(
+            image: AssetImage('assets/images/splash_screen.png'),
+            fit: BoxFit.cover,
           ),
         ),
         child: Center(

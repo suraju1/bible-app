@@ -4,7 +4,8 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../leaderboard/domain/entities/leaderboard_user.dart';
 import '../../../leaderboard/presentation/widgets/leaderboard_podium.dart';
-import '../../../leaderboard/presentation/widgets/leaderboard_list_item.dart';
+import '../../../leaderboard/presentation/widgets/user_rank_tile.dart';
+import '../../../leaderboard/presentation/widgets/current_user_card.dart';
 import '../providers/challenge_group_provider.dart';
 
 class GroupLeaderboardScreen extends ConsumerWidget {
@@ -30,28 +31,68 @@ class GroupLeaderboardScreen extends ConsumerWidget {
           ),
         ),
         child: groupAsyncValue.when(
-          loading: () => const Center(child: CircularProgressIndicator(color: Colors.white)),
-          error: (err, stack) => Center(child: Text('Error: $err', style: const TextStyle(color: Colors.white))),
+          loading: () => const Center(
+            child: CircularProgressIndicator(color: Colors.white),
+          ),
+          error: (err, stack) => Center(
+            child: Text(
+              'Error: $err',
+              style: const TextStyle(color: Colors.white),
+            ),
+          ),
           data: (group) {
             // Map group members to LeaderboardUser for podium compatibility
             // Adding dummy top 3 since the mock data only has 4 users with score 10
             final top3 = [
-              LeaderboardUser(id: 'u1', name: 'Caroline', avatarUrl: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80', rank: 1, score: 150, level: 1),
-              LeaderboardUser(id: 'u2', name: 'Caroline', avatarUrl: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80', rank: 2, score: 140, level: 1),
-              LeaderboardUser(id: 'u3', name: 'Caroline', avatarUrl: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80', rank: 3, score: 130, level: 1),
+              LeaderboardUser(
+                id: 'u1',
+                name: 'Caroline',
+                avatarUrl:
+                    'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80',
+                rank: 1,
+                score: 150,
+                level: 1,
+              ),
+              LeaderboardUser(
+                id: 'u2',
+                name: 'Caroline',
+                avatarUrl:
+                    'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80',
+                rank: 2,
+                score: 140,
+                level: 1,
+              ),
+              LeaderboardUser(
+                id: 'u3',
+                name: 'Caroline',
+                avatarUrl:
+                    'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80',
+                rank: 3,
+                score: 130,
+                level: 1,
+              ),
             ];
 
-            final restUsers = group.members.map((m) => LeaderboardUser(
-              id: m.id,
-              name: m.name,
-              avatarUrl: m.avatarUrl ?? 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80',
-              rank: m.rank + 3, // offsetting rank for mock
-              score: 120 - (m.rank * 10), // mock descending scores
-              level: 1,
-              isCurrentUser: m.name == 'You',
-            )).toList();
+            final restUsers = group.members
+                .map(
+                  (m) => LeaderboardUser(
+                    id: m.id,
+                    name: m.name,
+                    avatarUrl:
+                        m.avatarUrl ??
+                        'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&w=100&q=80',
+                    rank: m.rank + 3, // offsetting rank for mock
+                    score: 120 - (m.rank * 10), // mock descending scores
+                    level: 1,
+                    isCurrentUser: m.name == 'You',
+                  ),
+                )
+                .toList();
 
-            final currentUser = restUsers.firstWhere((u) => u.isCurrentUser, orElse: () => restUsers.first);
+            final currentUser = restUsers.firstWhere(
+              (u) => u.isCurrentUser,
+              orElse: () => restUsers.first,
+            );
 
             return Column(
               children: [
@@ -59,7 +100,10 @@ class GroupLeaderboardScreen extends ConsumerWidget {
                 SafeArea(
                   bottom: false,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16.0,
+                      vertical: 8.0,
+                    ),
                     child: Row(
                       children: [
                         Container(
@@ -68,7 +112,11 @@ class GroupLeaderboardScreen extends ConsumerWidget {
                             color: Colors.black.withOpacity(0.15),
                           ),
                           child: IconButton(
-                            icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 20),
+                            icon: const Icon(
+                              Icons.arrow_back_ios_new,
+                              color: Colors.white,
+                              size: 20,
+                            ),
                             onPressed: () => context.pop(),
                           ),
                         ),
@@ -96,7 +144,7 @@ class GroupLeaderboardScreen extends ConsumerWidget {
                     children: [
                       // Podium
                       Positioned(
-                        top: 10,
+                        top: 40,
                         left: 0,
                         right: 0,
                         child: LeaderboardPodium(topUsers: top3),
@@ -104,19 +152,23 @@ class GroupLeaderboardScreen extends ConsumerWidget {
 
                       // White Container
                       Positioned.fill(
-                        top: 230,
+                        top: 240,
                         child: Container(
                           decoration: const BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.vertical(top: Radius.circular(32)),
+                            borderRadius: BorderRadius.vertical(
+                              top: Radius.circular(32),
+                            ),
                           ),
                           child: Column(
                             children: [
                               const SizedBox(height: 24),
-                              
+
                               // Sponsor / Rewards Tabs
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 24.0,
+                                ),
                                 child: Row(
                                   children: [
                                     _buildTabButton('Sponsor', true),
@@ -129,9 +181,12 @@ class GroupLeaderboardScreen extends ConsumerWidget {
 
                               // Filters (Language, English, Daily)
                               Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 24.0,
+                                ),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
                                     _buildFilterDropdown('Language'),
                                     _buildFilterDropdown('English'),
@@ -147,7 +202,7 @@ class GroupLeaderboardScreen extends ConsumerWidget {
                                   padding: const EdgeInsets.only(bottom: 100),
                                   itemCount: restUsers.length,
                                   itemBuilder: (context, index) {
-                                    return LeaderboardListItem(
+                                    return UserRankTile(
                                       user: restUsers[index],
                                       onTap: () {},
                                     );
@@ -166,23 +221,9 @@ class GroupLeaderboardScreen extends ConsumerWidget {
                         right: 16,
                         child: SafeArea(
                           top: false,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(24),
-                              border: Border.all(color: AppColors.primary, width: 1.5),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.1),
-                                  blurRadius: 10,
-                                  offset: const Offset(0, 4),
-                                ),
-                              ],
-                            ),
-                            child: LeaderboardListItem(
-                              user: currentUser,
-                              onTap: () {},
-                            ),
+                          child: CurrentUserCard(
+                            user: currentUser,
+                            onTap: () {},
                           ),
                         ),
                       ),
@@ -204,14 +245,16 @@ class GroupLeaderboardScreen extends ConsumerWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(24),
-          border: Border.all(color: isSelected ? Colors.transparent : Colors.grey.shade300),
+          border: Border.all(
+            color: isSelected ? Colors.transparent : Colors.grey.shade300,
+          ),
           boxShadow: isSelected
               ? [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.05),
                     blurRadius: 8,
                     offset: const Offset(0, 2),
-                  )
+                  ),
                 ]
               : null,
         ),
@@ -238,7 +281,14 @@ class GroupLeaderboardScreen extends ConsumerWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(text, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.bold, color: Color(0xFF2C3E50))),
+          Text(
+            text,
+            style: const TextStyle(
+              fontSize: 12,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF2C3E50),
+            ),
+          ),
           const SizedBox(width: 4),
           const Icon(Icons.keyboard_arrow_down, size: 16, color: Colors.grey),
         ],

@@ -1,3 +1,4 @@
+import 'package:bible_quiz_app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'category_illustrations.dart';
 
@@ -20,7 +21,10 @@ class CategoryCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: const Color(0xFF01369F).withValues(alpha: 0.15), width: 1.5),
+        border: Border.all(
+          color: const Color(0xFF01369F).withValues(alpha: 0.15),
+          width: 1.5,
+        ),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withValues(alpha: 0.03),
@@ -60,11 +64,7 @@ class CategoryCard extends StatelessWidget {
                       height: 34,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        gradient: LinearGradient(
-                          colors: [Color(0xFF5A84C3), Color(0xFF01369F)],
-                          begin: Alignment.topLeft,
-                          end: Alignment.bottomRight,
-                        ),
+                        gradient: AppColors.primaryGradient,
                       ),
                       child: const Center(
                         child: Icon(
@@ -89,9 +89,7 @@ class CategoryCard extends StatelessWidget {
             bottom: 4,
             width: 75,
             height: 75,
-            child: IgnorePointer(
-              child: _buildIllustration(),
-            ),
+            child: IgnorePointer(child: _buildIllustration()),
           ),
 
           // Flat transparent InkWell for click handling
@@ -112,13 +110,9 @@ class CategoryCard extends StatelessWidget {
   Widget _buildIllustration() {
     switch (iconType) {
       case 'live_quiz':
-        return const CustomPaint(
-          painter: PencilsIllustrationPainter(),
-        );
+        return const CustomPaint(painter: PencilsIllustrationPainter());
       case 'discipline_challenge':
-        return const CustomPaint(
-          painter: MindPuzzleIllustrationPainter(),
-        );
+        return const CustomPaint(painter: MindPuzzleIllustrationPainter());
       default:
         return Container();
     }

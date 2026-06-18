@@ -29,7 +29,13 @@ class LanguageSelectionScreen extends ConsumerWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
-        title: const Text('Language Selection', style: TextStyle(color: AppColors.textPrimary, fontWeight: FontWeight.bold)),
+        title: const Text(
+          'Language Selection',
+          style: TextStyle(
+            color: AppColors.textPrimary,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
@@ -44,7 +50,10 @@ class LanguageSelectionScreen extends ConsumerWidget {
               TextField(
                 decoration: InputDecoration(
                   hintText: '| ex. Hindi',
-                  prefixIcon: const Icon(Icons.search, color: AppColors.textSecondary),
+                  prefixIcon: const Icon(
+                    Icons.search,
+                    color: AppColors.textSecondary,
+                  ),
                   filled: true,
                   fillColor: Colors.white,
                   contentPadding: const EdgeInsets.symmetric(vertical: 16),
@@ -77,46 +86,94 @@ class LanguageSelectionScreen extends ConsumerWidget {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             const Padding(
-                              padding: EdgeInsets.only(left: 16.0, top: 12.0, bottom: 8.0),
+                              padding: EdgeInsets.only(
+                                left: 16.0,
+                                top: 12.0,
+                                bottom: 8.0,
+                              ),
                               child: Text(
                                 'Suggestion',
-                                style: TextStyle(color: AppColors.textSecondary, fontSize: 12, fontWeight: FontWeight.w600),
+                                style: TextStyle(
+                                  color: AppColors.textSecondary,
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                ),
                               ),
                             ),
                             Expanded(
                               child: languageListAsyncValue.when(
-                                loading: () => const Center(child: CircularProgressIndicator()),
-                                error: (err, stack) => Center(child: Text('Error: $err')),
+                                loading: () => const Center(
+                                  child: CircularProgressIndicator(),
+                                ),
+                                error: (err, stack) =>
+                                    Center(child: Text('Error: $err')),
                                 data: (languages) {
                                   return ListView.separated(
                                     itemCount: languages.length,
-                                    separatorBuilder: (context, index) => const Divider(height: 1),
+                                    separatorBuilder: (context, index) =>
+                                        const Divider(height: 1),
                                     itemBuilder: (context, index) {
                                       final language = languages[index];
-                                      final isSelected = selectedLanguages.any((l) => l.code == language.code);
+                                      final isSelected = selectedLanguages.any(
+                                        (l) => l.code == language.code,
+                                      );
                                       return ListTile(
                                         title: Text(
                                           language.name,
                                           style: TextStyle(
-                                            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                                            fontWeight: isSelected
+                                                ? FontWeight.bold
+                                                : FontWeight.normal,
                                             color: AppColors.textPrimary,
                                           ),
                                         ),
-                                        subtitle: language.name != language.nativeName ? Text(language.nativeName) : null,
+                                        subtitle:
+                                            language.name != language.nativeName
+                                            ? Text(language.nativeName)
+                                            : null,
                                         trailing: isSelected
-                                            ? const Icon(Icons.check_circle, color: AppColors.primary)
-                                            : const Icon(Icons.circle_outlined, color: Colors.grey),
+                                            ? const Icon(
+                                                Icons.check_circle,
+                                                color: AppColors.primary,
+                                              )
+                                            : const Icon(
+                                                Icons.circle_outlined,
+                                                color: Colors.grey,
+                                              ),
                                         onTap: () {
-                                          final notifier = ref.read(selectedLanguagesProvider.notifier);
+                                          final notifier = ref.read(
+                                            selectedLanguagesProvider.notifier,
+                                          );
                                           if (isSelected) {
-                                            notifier.state = selectedLanguages.where((l) => l.code != language.code).toList();
-                                            if (primaryLanguage?.code == language.code) {
-                                              ref.read(primaryLanguageProvider.notifier).state = null;
+                                            notifier.state = selectedLanguages
+                                                .where(
+                                                  (l) =>
+                                                      l.code != language.code,
+                                                )
+                                                .toList();
+                                            if (primaryLanguage?.code ==
+                                                language.code) {
+                                              ref
+                                                      .read(
+                                                        primaryLanguageProvider
+                                                            .notifier,
+                                                      )
+                                                      .state =
+                                                  null;
                                             }
                                           } else {
-                                            notifier.state = [...selectedLanguages, language];
+                                            notifier.state = [
+                                              ...selectedLanguages,
+                                              language,
+                                            ];
                                             if (primaryLanguage == null) {
-                                              ref.read(primaryLanguageProvider.notifier).state = language;
+                                              ref
+                                                      .read(
+                                                        primaryLanguageProvider
+                                                            .notifier,
+                                                      )
+                                                      .state =
+                                                  language;
                                             }
                                           }
                                         },
@@ -143,55 +200,104 @@ class LanguageSelectionScreen extends ConsumerWidget {
                             crossAxisAlignment: CrossAxisAlignment.stretch,
                             children: [
                               const Padding(
-                                padding: EdgeInsets.only(left: 16.0, top: 12.0, bottom: 8.0),
+                                padding: EdgeInsets.only(
+                                  left: 16.0,
+                                  top: 12.0,
+                                  bottom: 8.0,
+                                ),
                                 child: Text(
                                   'Selected language',
-                                  style: TextStyle(color: AppColors.textSecondary, fontSize: 12, fontWeight: FontWeight.w600),
+                                  style: TextStyle(
+                                    color: AppColors.textSecondary,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ),
                               ...selectedLanguages.map((language) {
-                                final isPrimary = primaryLanguage?.code == language.code;
-                                final skills = languageSkills[language.code] ?? {};
+                                final isPrimary =
+                                    primaryLanguage?.code == language.code;
+                                final skills =
+                                    languageSkills[language.code] ?? {};
 
                                 return Container(
-                                  margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                                  margin: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                    vertical: 6,
+                                  ),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(12),
-                                    border: Border.all(color: Colors.grey.shade300),
+                                    border: Border.all(
+                                      color: Colors.grey.shade300,
+                                    ),
                                   ),
                                   child: Theme(
-                                    data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+                                    data: Theme.of(context).copyWith(
+                                      dividerColor: Colors.transparent,
+                                    ),
                                     child: ExpansionTile(
                                       initiallyExpanded: isPrimary,
                                       title: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
                                             language.name,
-                                            style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                                            style: const TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              color: AppColors.textPrimary,
+                                            ),
                                           ),
                                           Row(
                                             children: [
                                               Radio<String>(
                                                 value: language.code,
-                                                groupValue: primaryLanguage?.code,
+                                                groupValue:
+                                                    primaryLanguage?.code,
                                                 onChanged: (val) {
                                                   if (val != null) {
-                                                    ref.read(primaryLanguageProvider.notifier).state = language;
+                                                    ref
+                                                            .read(
+                                                              primaryLanguageProvider
+                                                                  .notifier,
+                                                            )
+                                                            .state =
+                                                        language;
                                                   }
                                                 },
                                                 activeColor: AppColors.primary,
                                               ),
-                                              const Text('Primary', style: TextStyle(color: Colors.grey, fontSize: 12)),
+                                              const Text(
+                                                'Primary',
+                                                style: TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
                                             ],
                                           ),
                                         ],
                                       ),
                                       children: [
-                                        _buildSkillCheckbox(ref, language.code, skills, 'Reading'),
-                                        _buildSkillCheckbox(ref, language.code, skills, 'Writing'),
-                                        _buildSkillCheckbox(ref, language.code, skills, 'Speaking'),
+                                        _buildSkillCheckbox(
+                                          ref,
+                                          language.code,
+                                          skills,
+                                          'Reading',
+                                        ),
+                                        _buildSkillCheckbox(
+                                          ref,
+                                          language.code,
+                                          skills,
+                                          'Writing',
+                                        ),
+                                        _buildSkillCheckbox(
+                                          ref,
+                                          language.code,
+                                          skills,
+                                          'Speaking',
+                                        ),
                                         const SizedBox(height: 8),
                                       ],
                                     ),
@@ -199,6 +305,49 @@ class LanguageSelectionScreen extends ConsumerWidget {
                                 );
                               }),
                               const SizedBox(height: 8),
+                            ],
+                          ),
+                        )
+                      else
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: 48.0,
+                            left: 16,
+                            right: 16,
+                          ),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.all(24),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade100,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Icon(
+                                  Icons.language,
+                                  size: 48,
+                                  color: Colors.grey.shade400,
+                                ),
+                              ),
+                              const SizedBox(height: 24),
+                              const Text(
+                                'No Language Selected',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: AppColors.textPrimary,
+                                ),
+                              ),
+                              const SizedBox(height: 8),
+                              Text(
+                                'Please select a language from the suggestions above to configure your proficiency.',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey.shade500,
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -209,27 +358,56 @@ class LanguageSelectionScreen extends ConsumerWidget {
               const SizedBox(height: 24),
 
               // Continue Button
-              ElevatedButton(
-                onPressed: primaryLanguage == null || saveState.isLoading
-                    ? null
-                    : () {
-                        ref.read(saveLanguageProvider.notifier).save(primaryLanguage);
-                      },
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  backgroundColor: AppColors.primary,
-                  disabledBackgroundColor: Colors.grey.shade300,
-                ),
-                child: saveState.isLoading
-                    ? const SizedBox(
-                        height: 20,
-                        width: 20,
-                        child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2),
-                      )
-                    : const Text('Continue', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+              Builder(
+                builder: (context) {
+                  final isButtonDisabled =
+                      primaryLanguage == null || saveState.isLoading;
+                  return Container(
+                    height: 60,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      gradient: isButtonDisabled
+                          ? null
+                          : AppColors.primaryGradient,
+                      color: isButtonDisabled ? Colors.grey.shade300 : null,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: ElevatedButton(
+                      onPressed: isButtonDisabled
+                          ? null
+                          : () {
+                              ref
+                                  .read(saveLanguageProvider.notifier)
+                                  .save(primaryLanguage);
+                            },
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        backgroundColor: Colors.transparent,
+                        shadowColor: Colors.transparent,
+                        foregroundColor: Colors.white,
+                      ),
+                      child: saveState.isLoading
+                          ? const SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 2,
+                              ),
+                            )
+                          : const Text(
+                              'Continue',
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                    ),
+                  );
+                },
               ),
             ],
           ),
@@ -238,7 +416,12 @@ class LanguageSelectionScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildSkillCheckbox(WidgetRef ref, String languageCode, Set<String> skills, String skillName) {
+  Widget _buildSkillCheckbox(
+    WidgetRef ref,
+    String languageCode,
+    Set<String> skills,
+    String skillName,
+  ) {
     final isChecked = skills.contains(skillName);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -247,15 +430,25 @@ class LanguageSelectionScreen extends ConsumerWidget {
         children: [
           Row(
             children: [
-              const Text('• ', style: TextStyle(fontSize: 18, color: Colors.grey)),
-              Text(skillName, style: const TextStyle(color: AppColors.textPrimary)),
+              const Text(
+                '• ',
+                style: TextStyle(fontSize: 18, color: Colors.grey),
+              ),
+              Text(
+                skillName,
+                style: const TextStyle(color: AppColors.textPrimary),
+              ),
             ],
           ),
           Checkbox(
             value: isChecked,
             onChanged: (val) {
-              final currentSkills = Map<String, Set<String>>.from(ref.read(languageSkillsProvider));
-              final langSkills = Set<String>.from(currentSkills[languageCode] ?? {});
+              final currentSkills = Map<String, Set<String>>.from(
+                ref.read(languageSkillsProvider),
+              );
+              final langSkills = Set<String>.from(
+                currentSkills[languageCode] ?? {},
+              );
               if (val == true) {
                 langSkills.add(skillName);
               } else {
@@ -265,7 +458,9 @@ class LanguageSelectionScreen extends ConsumerWidget {
               ref.read(languageSkillsProvider.notifier).state = currentSkills;
             },
             activeColor: AppColors.primary,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(4),
+            ),
           ),
         ],
       ),
