@@ -53,7 +53,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
     });
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -147,7 +147,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen> {
                           icon: Image.network('https://developers.google.com/identity/images/g-logo.png', height: 24),
                           label: const Text('Sign Up with Google', style: TextStyle(color: Colors.black87, fontWeight: FontWeight.bold)),
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.white,
+                            
                             padding: const EdgeInsets.symmetric(vertical: 14),
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
                           ),

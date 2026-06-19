@@ -39,4 +39,20 @@ class AppColors {
   static const Color textPrimary = Color(0xFF2C3E50);
   static const Color textSecondary = Color(0xFF7F8C8D);
   static const Color textLight = Colors.white;
+  // Theme Guidelines Colors
+  // Light Theme
+  static const Color lightThemeBackground = Color(0xFFFFFFFF);
+  static const Color lightThemeSurface = Color(0xFFF7F8FA);
+  static const Color lightThemePrimary = Color(0xFF5A7BFF);
+  static const Color lightThemeSecondary = Color(0xFF7ED0FF);
+  static const Color lightThemeTextPrimary = Color(0xFF1F2937);
+  static const Color lightThemeTextSecondary = Color(0xFF6B7280);
+
+  // Dark Theme
+  static const Color darkThemeBackground = Color(0xFF121212);
+  static const Color darkThemeSurface = Color(0xFF1E1E1E);
+  static const Color darkThemePrimary = Color(0xFF6B8CFF);
+  static const Color darkThemeSecondary = Color(0xFF7ED0FF);
+  static const Color darkThemeTextPrimary = Color(0xFFFFFFFF);
+  static const Color darkThemeTextSecondary = Color(0xFFB0B0B0);
 }

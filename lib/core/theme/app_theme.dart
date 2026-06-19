@@ -7,77 +7,92 @@ class AppTheme {
   AppTheme._();
 
   static ThemeData get lightTheme {
-    final baseTextTheme = ThemeData.light().textTheme;
     return ThemeData(
       fontFamily: GoogleFonts.poppins().fontFamily,
-      primaryColor: AppColors.primary,
-      scaffoldBackgroundColor: AppColors.background,
+      brightness: Brightness.light,
+      primaryColor: AppColors.lightThemePrimary,
+      scaffoldBackgroundColor: AppColors.lightThemeBackground,
       colorScheme: const ColorScheme.light(
-        primary: AppColors.primary,
-        secondary: AppColors.secondary,
-        surface: AppColors.surface,
-        error: AppColors.error,
+        primary: AppColors.lightThemePrimary,
+        secondary: AppColors.lightThemeSecondary,
+        surface: AppColors.lightThemeSurface,
+        background: AppColors.lightThemeBackground,
+        onPrimary: Colors.white,
+        onSecondary: Colors.white,
+        onSurface: AppColors.lightThemeTextPrimary,
+        onBackground: AppColors.lightThemeTextPrimary,
       ),
       appBarTheme: const AppBarTheme(
-        backgroundColor: AppColors.primary,
-        foregroundColor: AppColors.textLight,
+        backgroundColor: AppColors.lightThemeBackground,
+        foregroundColor: AppColors.lightThemeTextPrimary,
         elevation: 0,
         centerTitle: true,
       ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.primary,
-          foregroundColor: AppColors.textLight,
-          textStyle: AppTextStyles.buttonText,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+      textTheme: ThemeData.light().textTheme
+          .copyWith(
+            displayLarge: AppTextStyles.heading1.copyWith(
+              color: AppColors.lightThemeTextPrimary,
+            ),
+            displayMedium: AppTextStyles.heading2.copyWith(
+              color: AppColors.lightThemeTextPrimary,
+            ),
+            bodyLarge: AppTextStyles.bodyLarge.copyWith(
+              color: AppColors.lightThemeTextPrimary,
+            ),
+            bodyMedium: AppTextStyles.bodyMedium.copyWith(
+              color: AppColors.lightThemeTextSecondary,
+            ),
+          )
+          .apply(
+            fontFamily: GoogleFonts.poppins().fontFamily,
+            bodyColor: AppColors.lightThemeTextPrimary,
+            displayColor: AppColors.lightThemeTextPrimary,
           ),
-        ),
-      ),
-      textTheme: GoogleFonts.poppinsTextTheme(baseTextTheme).copyWith(
-        displayLarge: AppTextStyles.heading1,
-        displayMedium: AppTextStyles.heading2,
-        bodyLarge: AppTextStyles.bodyLarge,
-        bodyMedium: AppTextStyles.bodyMedium,
-      ),
     );
   }
 
   static ThemeData get darkTheme {
-    final baseTextTheme = ThemeData.dark().textTheme;
     return ThemeData(
       fontFamily: GoogleFonts.poppins().fontFamily,
-      primaryColor: AppColors.primaryDark,
-      scaffoldBackgroundColor: AppColors.backgroundDark,
+      brightness: Brightness.dark,
+      primaryColor: AppColors.darkThemePrimary,
+      scaffoldBackgroundColor: AppColors.darkThemeBackground,
       colorScheme: const ColorScheme.dark(
-        primary: AppColors.primaryDark,
-        secondary: AppColors.secondary,
-        surface: AppColors.surfaceDark,
-        error: AppColors.error,
+        primary: AppColors.darkThemePrimary,
+        secondary: AppColors.darkThemeSecondary,
+        surface: AppColors.darkThemeSurface,
+        background: AppColors.darkThemeBackground,
+        onPrimary: Colors.white,
+        onSecondary: Colors.black,
+        onSurface: AppColors.darkThemeTextPrimary,
+        onBackground: AppColors.darkThemeTextPrimary,
       ),
       appBarTheme: const AppBarTheme(
-        backgroundColor: AppColors.surfaceDark,
-        foregroundColor: AppColors.textLight,
+        backgroundColor: AppColors.darkThemeBackground,
+        foregroundColor: AppColors.darkThemeTextPrimary,
         elevation: 0,
         centerTitle: true,
       ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.primary,
-          foregroundColor: AppColors.textLight,
-          textStyle: AppTextStyles.buttonText,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
+      textTheme: ThemeData.dark().textTheme
+          .copyWith(
+            displayLarge: AppTextStyles.heading1.copyWith(
+              color: AppColors.darkThemeTextPrimary,
+            ),
+            displayMedium: AppTextStyles.heading2.copyWith(
+              color: AppColors.darkThemeTextPrimary,
+            ),
+            bodyLarge: AppTextStyles.bodyLarge.copyWith(
+              color: AppColors.darkThemeTextPrimary,
+            ),
+            bodyMedium: AppTextStyles.bodyMedium.copyWith(
+              color: AppColors.darkThemeTextSecondary,
+            ),
+          )
+          .apply(
+            fontFamily: GoogleFonts.poppins().fontFamily,
+            bodyColor: AppColors.darkThemeTextPrimary,
+            displayColor: AppColors.darkThemeTextPrimary,
           ),
-        ),
-      ),
-      textTheme: GoogleFonts.poppinsTextTheme(baseTextTheme).copyWith(
-        displayLarge: AppTextStyles.heading1.copyWith(color: AppColors.textLight),
-        displayMedium: AppTextStyles.heading2.copyWith(color: AppColors.textLight),
-        bodyLarge: AppTextStyles.bodyLarge.copyWith(color: AppColors.textLight),
-        bodyMedium: AppTextStyles.bodyMedium.copyWith(color: Colors.white70),
-      ),
     );
   }
 }
-

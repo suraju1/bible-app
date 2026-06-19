@@ -8,7 +8,7 @@ class TranslationSuccessDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
-      backgroundColor: Colors.white,
+      
       child: Padding(
         padding: const EdgeInsets.all(24.0),
         child: Column(

@@ -17,6 +17,24 @@ import '../../features/translate_quiz/presentation/screens/translate_quiz_list_s
 import '../../features/translate_quiz/presentation/screens/translate_form_screen.dart';
 import '../../features/correction_quiz/presentation/screens/correction_quiz_list_screen.dart';
 import '../../features/correction_quiz/presentation/screens/correction_form_screen.dart';
+import '../../features/play_quiz/presentation/screens/quiz_mode_selection_screen.dart';
+import '../../features/play_quiz/presentation/screens/quiz_type_selection_screen.dart';
+import '../../features/play_quiz/presentation/screens/play_quiz_screen.dart';
+import '../../features/create_quiz/presentation/screens/create_quiz_screen.dart';
+import '../../features/profile/presentation/screens/profile_screen.dart';
+import '../../features/profile/presentation/screens/placeholders.dart';
+import '../../features/profile/presentation/screens/my_profile_screen.dart';
+import '../../features/profile/presentation/screens/achievements_screen.dart';
+import '../../features/profile/presentation/screens/rewards_screen.dart';
+import '../../features/profile/presentation/screens/quiz_history_screen.dart';
+import '../../features/profile/presentation/screens/quiz_history_details_screen.dart';
+import '../../features/profile/presentation/screens/referral_screen.dart';
+import '../../features/profile/presentation/screens/theme_settings_screen.dart';
+import '../../features/profile/presentation/screens/notification_settings_screen.dart';
+import '../../features/profile/presentation/screens/language_settings_screen.dart';
+import '../../features/profile/presentation/screens/help_support_screen.dart';
+import '../../features/profile/presentation/screens/help_support_destinations.dart';
+import '../../features/profile/presentation/screens/terms_conditions_screen.dart';
 
 // Provide the GoRouter instance
 final routerProvider = Provider<GoRouter>((ref) {
@@ -91,6 +109,86 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/correction-form/:id',
         builder: (context, state) => CorrectionFormScreen(taskId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        path: '/quiz-mode-selection',
+        builder: (context, state) => const QuizModeSelectionScreen(),
+      ),
+      GoRoute(
+        path: '/quiz-type-selection',
+        builder: (context, state) => const QuizTypeSelectionScreen(),
+      ),
+      GoRoute(
+        path: '/play-quiz',
+        builder: (context, state) => const PlayQuizScreen(),
+      ),
+      GoRoute(
+        path: '/create-quiz',
+        builder: (context, state) => const CreateQuizScreen(),
+      ),
+      GoRoute(
+        path: '/profile/my-profile',
+        builder: (context, state) => const MyProfileScreen(),
+      ),
+      GoRoute(
+        path: '/profile/achievements',
+        builder: (context, state) => const AchievementsScreen(),
+      ),
+      GoRoute(
+        path: '/profile/rewards',
+        builder: (context, state) => const RewardsScreen(),
+      ),
+      GoRoute(
+        path: '/profile/history',
+        builder: (context, state) => const QuizHistoryScreen(),
+      ),
+      GoRoute(
+        path: '/profile/history-details/:id',
+        builder: (context, state) => QuizHistoryDetailsScreen(quizId: state.pathParameters['id']!),
+      ),
+      GoRoute(
+        path: '/profile/referral',
+        builder: (context, state) => const ReferralScreen(),
+      ),
+      GoRoute(
+        path: '/profile/theme',
+        builder: (context, state) => const ThemeSettingsScreen(),
+      ),
+      GoRoute(
+        path: '/profile/notifications',
+        builder: (context, state) => const NotificationSettingsScreen(),
+      ),
+      GoRoute(
+        path: '/profile/language',
+        builder: (context, state) => const LanguageSettingsScreen(),
+      ),
+      GoRoute(
+        path: '/profile/help',
+        builder: (context, state) => const HelpSupportScreen(),
+      ),
+      GoRoute(
+        path: '/profile/help/faq',
+        builder: (context, state) => const FaqScreen(),
+      ),
+      GoRoute(
+        path: '/profile/help/report-issue',
+        builder: (context, state) => const ReportIssueScreen(),
+      ),
+      GoRoute(
+        path: '/profile/help/feedback',
+        builder: (context, state) => const FeedbackScreen(),
+      ),
+      GoRoute(
+        path: '/profile/help/help-center',
+        builder: (context, state) => const HelpCenterScreen(),
+      ),
+      GoRoute(
+        path: '/profile/support',
+        builder: (context, state) => const HelpSupportScreen(),
+      ),
+      GoRoute(
+        path: '/profile/terms',
+        builder: (context, state) => const TermsConditionsScreen(),
       ),
     ],
   );

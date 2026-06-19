@@ -22,7 +22,7 @@ class AuthSelectionScreen extends ConsumerWidget {
     });
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(

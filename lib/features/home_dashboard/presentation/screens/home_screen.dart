@@ -11,6 +11,7 @@ import '../widgets/category_card.dart';
 import '../../../leaderboard/presentation/screens/leaderboard_screen.dart';
 import '../../../challenge_group/presentation/screens/battles_screen.dart';
 import '../../../translate_quiz/presentation/screens/quiz_hub_screen.dart';
+import '../../../profile/presentation/screens/profile_screen.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -151,7 +152,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       case 3:
         return const LeaderboardScreen();
       case 4:
-        return const _ProfileTabView();
+        return const ProfileScreen();
       default:
         return const _DashboardTabView();
     }

@@ -76,11 +76,11 @@ class LanguageSelectionScreen extends ConsumerWidget {
                     children: [
                       // Suggestion Box
                       Container(
-                        height: 200, // Fixed height or could be dynamic
+                        height: 250,
                         decoration: BoxDecoration(
-                          color: Colors.white,
+                          color: Colors.transparent,
                           borderRadius: BorderRadius.circular(12),
-                          border: Border.all(color: Colors.grey.shade300),
+                          border: Border.all(color: Colors.grey),
                         ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -95,8 +95,8 @@ class LanguageSelectionScreen extends ConsumerWidget {
                                 'Suggestion',
                                 style: TextStyle(
                                   color: AppColors.textSecondary,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ),
@@ -111,25 +111,39 @@ class LanguageSelectionScreen extends ConsumerWidget {
                                   return ListView.separated(
                                     itemCount: languages.length,
                                     separatorBuilder: (context, index) =>
-                                        const Divider(height: 1),
+                                        Divider(
+                                          height: 1,
+                                          indent: 16,
+                                          endIndent: 16,
+                                          color: Colors.grey.shade300,
+                                        ),
                                     itemBuilder: (context, index) {
                                       final language = languages[index];
                                       final isSelected = selectedLanguages.any(
                                         (l) => l.code == language.code,
                                       );
                                       return ListTile(
+                                        contentPadding: const EdgeInsets.symmetric(
+                                            horizontal: 16.0, vertical: 0.0),
                                         title: Text(
-                                          language.name,
+                                          language.nativeName,
                                           style: TextStyle(
                                             fontWeight: isSelected
-                                                ? FontWeight.bold
-                                                : FontWeight.normal,
+                                                ? FontWeight.w600
+                                                : FontWeight.w500,
                                             color: AppColors.textPrimary,
+                                            fontSize: 16,
                                           ),
                                         ),
                                         subtitle:
                                             language.name != language.nativeName
-                                            ? Text(language.nativeName)
+                                            ? Text(
+                                                language.name,
+                                                style: const TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 14,
+                                                ),
+                                              )
                                             : null,
                                         trailing: isSelected
                                             ? const Icon(
@@ -138,7 +152,7 @@ class LanguageSelectionScreen extends ConsumerWidget {
                                               )
                                             : const Icon(
                                                 Icons.circle_outlined,
-                                                color: Colors.grey,
+                                                color: AppColors.primary,
                                               ),
                                         onTap: () {
                                           final notifier = ref.read(

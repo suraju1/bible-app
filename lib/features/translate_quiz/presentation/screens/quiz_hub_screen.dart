@@ -8,7 +8,7 @@ class QuizHubScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 32.0),
@@ -17,12 +17,16 @@ class QuizHubScreen extends StatelessWidget {
             children: [
               _buildGradientButton(
                 title: 'Play Quiz',
-                onTap: () {},
+                onTap: () {
+                  context.push('/quiz-mode-selection');
+                },
               ),
               const SizedBox(height: 16),
               _buildGradientButton(
                 title: 'Create Quiz',
-                onTap: () {},
+                onTap: () {
+                  context.push('/create-quiz');
+                },
               ),
               const SizedBox(height: 16),
               _buildGradientButton(
