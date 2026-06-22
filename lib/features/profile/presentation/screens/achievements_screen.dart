@@ -137,11 +137,10 @@ class AchievementsScreen extends ConsumerWidget {
                                 Stack(
                                   alignment: Alignment.center,
                                   children: [
-                                    const Icon(
-                                      Icons
-                                          .verified, // Placeholder for large badge
-                                      size: 100,
-                                      color: Color(0xFF6B8BE8),
+                                    Image.asset(
+                                      _getRankAsset(achievement.currentRank),
+                                      width: 100,
+                                      height: 100,
                                     ),
                                     Text(
                                       achievement.currentLevel.toString(),
@@ -231,7 +230,7 @@ class AchievementsScreen extends ConsumerWidget {
                                   runSpacing: 20,
                                   alignment: WrapAlignment.center,
                                   children: _buildRankBadges(
-                                    achievement.unlockedRanks,
+                                    achievement.currentLevel,
                                     achievement.currentRank,
                                   ),
                                 ),
@@ -276,53 +275,41 @@ class AchievementsScreen extends ConsumerWidget {
     );
   }
 
+  String _getRankAsset(String currentRank) {
+    switch (currentRank.toLowerCase()) {
+      case 'bronze': return 'assets/images/bronze.png';
+      case 'silver': return 'assets/images/silver.png';
+      case 'gold': return 'assets/images/gold.png';
+      case 'platinum': return 'assets/images/platinum.png';
+      case 'diamond': return 'assets/images/dimond.png';
+      case 'master': return 'assets/images/master.png';
+      case 'grand master': return 'assets/images/grand_master.png';
+      case 'elite': return 'assets/images/elite.png';
+      case 'champion': return 'assets/images/champion.png';
+      case 'legend': return 'assets/images/legend.png';
+      default: return 'assets/images/bronze.png'; // default fallback
+    }
+  }
+
   List<Widget> _buildRankBadges(
-    List<String> unlockedRanks,
+    int currentLevel,
     String currentRank,
   ) {
     final List<Map<String, dynamic>> ranks = [
-      {'name': 'Bronze', 'level': 5, 'asset': 'assets/images/ranks/bronze.png'},
-      {
-        'name': 'Silver',
-        'level': 10,
-        'asset': 'assets/images/ranks/silver.png',
-      },
-      {'name': 'Gold', 'level': 20, 'asset': 'assets/images/ranks/gold.png'},
-      {
-        'name': 'Platinum',
-        'level': 30,
-        'asset': 'assets/images/ranks/platinum.png',
-      },
-      {
-        'name': 'Diamond',
-        'level': 40,
-        'asset': 'assets/images/ranks/diamond.png',
-      },
-      {
-        'name': 'Master',
-        'level': 50,
-        'asset': 'assets/images/ranks/master.png',
-      },
-      {
-        'name': 'Grand Master',
-        'level': 60,
-        'asset': 'assets/images/ranks/grand_master.png',
-      },
-      {'name': 'Elite', 'level': 70, 'asset': 'assets/images/ranks/elite.png'},
-      {
-        'name': 'Champion',
-        'level': 80,
-        'asset': 'assets/images/ranks/champion.png',
-      },
-      {
-        'name': 'Legend',
-        'level': 100,
-        'asset': 'assets/images/ranks/legend.png',
-      },
+      {'name': 'Bronze', 'level': 5, 'asset': 'assets/images/bronze.png'},
+      {'name': 'Silver', 'level': 10, 'asset': 'assets/images/silver.png'},
+      {'name': 'Gold', 'level': 20, 'asset': 'assets/images/gold.png'},
+      {'name': 'Platinum', 'level': 30, 'asset': 'assets/images/platinum.png'},
+      {'name': 'Diamond', 'level': 40, 'asset': 'assets/images/dimond.png'},
+      {'name': 'Master', 'level': 50, 'asset': 'assets/images/master.png'},
+      {'name': 'Grand Master', 'level': 60, 'asset': 'assets/images/grand_master.png'},
+      {'name': 'Elite', 'level': 70, 'asset': 'assets/images/elite.png'},
+      {'name': 'Champion', 'level': 80, 'asset': 'assets/images/champion.png'},
+      {'name': 'Legend', 'level': 100, 'asset': 'assets/images/legend.png'},
     ];
 
     return ranks.map((rank) {
-      final isUnlocked = unlockedRanks.contains(rank['name']);
+      final isUnlocked = currentLevel >= rank['level'];
       final isCurrent = currentRank == rank['name'];
 
       return RankBadgeWidget(

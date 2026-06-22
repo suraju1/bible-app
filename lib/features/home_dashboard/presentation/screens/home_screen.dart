@@ -34,14 +34,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         height: 68,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          gradient: const RadialGradient(
-            colors: [Color(0xFF4B49EB), Color(0xFF2D2BA7)], // Radial blue gradient
-            radius: 0.8,
-            center: Alignment.topLeft,
-          ),
+          gradient: AppColors.primaryGradient,
           boxShadow: [
             BoxShadow(
-              color: const Color(0xFF2D2BA7).withValues(alpha: 0.5),
+              color: AppColors.vibrantIndigo.withValues(alpha: 0.5),
               blurRadius: 16, // Increased blur for larger shadow
               spreadRadius: 4, // Increased spread
               offset: const Offset(0, 6),

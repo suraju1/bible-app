@@ -23,3 +23,15 @@ class HelpArticleModel {
     this.url,
   });
 }
+
+class HelpCategoryModel {
+  final String id;
+  final String name;
+  final String icon;
+
+  const HelpCategoryModel({
+    required this.id,
+    required this.name,
+    required this.icon,
+  });
+}

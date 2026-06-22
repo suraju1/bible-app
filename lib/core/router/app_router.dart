@@ -34,6 +34,12 @@ import '../../features/profile/presentation/screens/notification_settings_screen
 import '../../features/profile/presentation/screens/language_settings_screen.dart';
 import '../../features/profile/presentation/screens/help_support_screen.dart';
 import '../../features/profile/presentation/screens/help_support_destinations.dart';
+import '../../features/profile/presentation/screens/feedback_screen.dart';
+import '../../features/profile/presentation/screens/faq_screen.dart';
+import '../../features/profile/presentation/screens/report_issue_screen.dart';
+import '../../features/profile/presentation/screens/help_center_screen.dart';
+import '../../features/profile/presentation/screens/help_article_details_screen.dart';
+import '../../features/profile/domain/models/help_support_model.dart';
 import '../../features/profile/presentation/screens/terms_conditions_screen.dart';
 
 // Provide the GoRouter instance
@@ -181,6 +187,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/profile/help/help-center',
         builder: (context, state) => const HelpCenterScreen(),
+      ),
+      GoRoute(
+        path: '/profile/help/article',
+        builder: (context, state) => HelpArticleDetailsScreen(article: state.extra as HelpArticleModel),
       ),
       GoRoute(
         path: '/profile/support',

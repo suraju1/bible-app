@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../domain/entities/leaderboard_user.dart';
+import '../../../../core/utils/rank_utils.dart';
 
 class CurrentUserCard extends StatelessWidget {
   final LeaderboardUser user;
@@ -126,25 +127,10 @@ class CurrentUserCard extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 4),
-                    // Mock rank badge
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Icon(
-                          Icons.shield,
-                          size: 24,
-                          color: user.rank == 1
-                              ? const Color(0xFFFFD700)
-                              : (user.rank == 2
-                                  ? const Color(0xFFE0E0E0)
-                                  : (user.rank == 3 ? const Color(0xFFCD7F32) : const Color(0xFFB87333))),
-                        ),
-                        const Icon(
-                          Icons.star,
-                          size: 10,
-                          color: Colors.white,
-                        ),
-                      ],
+                    Image.asset(
+                      RankUtils.getRankAsset(user.level),
+                      width: 36,
+                      height: 36,
                     ),
                   ],
                 ),

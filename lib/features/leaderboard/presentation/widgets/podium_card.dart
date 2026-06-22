@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../domain/entities/leaderboard_user.dart';
+import '../../../../core/utils/rank_utils.dart';
 
 class PodiumCard extends StatelessWidget {
   final LeaderboardUser user;
@@ -102,23 +103,27 @@ class PodiumCard extends StatelessWidget {
                       fit: BoxFit.contain,
                     ),
                   ),
-                  // Mock Rank Badge
+                  // True Rank Image from User Level
                   Positioned(
                     bottom: -12,
-                    child: Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        FaIcon(
-                          FontAwesomeIcons.shieldHalved,
-                          size: 28,
-                          color: isFirst ? const Color(0xFFFFD700) : (isSecond ? const Color(0xFFE0E0E0) : const Color(0xFFCD7F32)),
-                        ),
-                        const Icon(
-                          Icons.star,
-                          size: 14,
-                          color: Colors.white,
-                        ),
-                      ],
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.1),
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
+                      ),
+                      padding: const EdgeInsets.all(3),
+                      child: Image.asset(
+                        RankUtils.getRankAsset(user.level),
+                        width: 32,
+                        height: 32,
+                      ),
                     ),
                   ),
                 ],
