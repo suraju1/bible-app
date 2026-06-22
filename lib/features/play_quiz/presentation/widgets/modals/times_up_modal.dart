@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class TimesUpModal extends StatelessWidget {
   const TimesUpModal({super.key});
@@ -97,7 +98,7 @@ class TimesUpModal extends StatelessWidget {
             ),
           ),
         ],
-      ),
+      ).animate().scale(duration: 500.ms, curve: Curves.elasticOut).fadeIn(duration: 200.ms),
     );
   }
 }

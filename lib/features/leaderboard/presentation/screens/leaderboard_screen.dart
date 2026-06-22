@@ -9,6 +9,7 @@ import '../widgets/leaderboard_skeleton.dart';
 import '../widgets/filter_chip_dropdown.dart';
 import '../widgets/user_rank_tile.dart';
 import '../widgets/current_user_card.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class LeaderboardScreen extends ConsumerWidget {
   const LeaderboardScreen({Key? key}) : super(key: key);
@@ -82,7 +83,7 @@ class LeaderboardScreen extends ConsumerWidget {
                       top: 54,
                       left: 0,
                       right: 0,
-                      child: LeaderboardPodium(topUsers: top3),
+                      child: LeaderboardPodium(topUsers: top3).animate().fade(duration: 500.ms).slideY(begin: 0.1, end: 0.0, curve: Curves.easeOutBack),
                     ),
 
                     // The White Container for the List
@@ -116,7 +117,7 @@ class LeaderboardScreen extends ConsumerWidget {
                             ),
                           ],
                         ),
-                      ),
+                      ).animate(delay: 200.ms).fade(duration: 400.ms).slideY(begin: 0.1, end: 0.0, curve: Curves.easeOutCubic),
                     ),
 
                     // Pinned Current User Row
@@ -142,7 +143,7 @@ class LeaderboardScreen extends ConsumerWidget {
                           user: currentUser,
                           onTap: () => UserRankDetailsPopup.show(context, currentUser),
                         ),
-                      ),
+                      ).animate(delay: 400.ms).fade(duration: 400.ms).slideY(begin: 0.2, end: 0.0, curve: Curves.easeOutCubic),
                     ),
                   ],
                 );

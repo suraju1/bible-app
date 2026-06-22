@@ -8,6 +8,7 @@ import '../widgets/custom_text_field.dart';
 import '../widgets/custom_dropdown.dart';
 import '../widgets/modals/success_modal.dart';
 import '../widgets/modals/validation_error_modal.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class CreateQuizScreen extends ConsumerStatefulWidget {
   const CreateQuizScreen({super.key});
@@ -379,7 +380,7 @@ class _CreateQuizScreenState extends ConsumerState<CreateQuizScreen> {
                               ),
                             ),
                             const SizedBox(height: 24),
-                          ],
+                          ].animate(interval: 40.ms).fade(duration: 400.ms, curve: Curves.easeOutCubic).slideY(begin: 0.05, end: 0.0, curve: Curves.easeOutCubic),
                         ),
                       ),
                     ),

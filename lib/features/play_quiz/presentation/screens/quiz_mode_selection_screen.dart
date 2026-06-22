@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class QuizModeSelectionScreen extends StatelessWidget {
   const QuizModeSelectionScreen({super.key});
@@ -76,7 +77,7 @@ class QuizModeSelectionScreen extends StatelessWidget {
                 },
                 isGradient: false,
               ),
-            ],
+            ].animate(interval: 50.ms).fade(duration: 400.ms, curve: Curves.easeOutCubic).slideY(begin: 0.1, end: 0.0, curve: Curves.easeOutCubic),
           ),
         ),
       ),

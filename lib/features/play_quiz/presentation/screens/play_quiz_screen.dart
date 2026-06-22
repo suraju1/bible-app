@@ -9,6 +9,7 @@ import '../widgets/modals/reference_modal.dart';
 import '../widgets/modals/issue_modal.dart';
 import '../widgets/modals/quiz_completed_modal.dart';
 import '../widgets/modals/times_up_modal.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class PlayQuizScreen extends ConsumerWidget {
   const PlayQuizScreen({super.key});
@@ -154,7 +155,7 @@ class PlayQuizScreen extends ConsumerWidget {
                           fontWeight: FontWeight.bold,
                           height: 1.4,
                         ),
-                      ),
+                      ).animate(key: ValueKey(currentQuestion.id)).fade(duration: 400.ms).scale(curve: Curves.easeOutBack, begin: const Offset(0.8, 0.8)),
                     ),
                   ),
                 ),
@@ -223,7 +224,7 @@ class PlayQuizScreen extends ConsumerWidget {
                           state: optState,
                           onTap: () => controller.selectOption(option.id),
                         );
-                      }),
+                      }).toList().animate(interval: 80.ms).fade(duration: 300.ms).slideX(begin: 0.05, end: 0.0, curve: Curves.easeOutCubic),
                       const SizedBox(height: 16),
                       // Bottom Actions
                       Row(
@@ -296,7 +297,7 @@ class PlayQuizScreen extends ConsumerWidget {
                             },
                           ),
                         ],
-                      ),
+                      ).animate(key: ValueKey('actions_${currentQuestion.id}')).fade(duration: 500.ms).slideY(begin: 0.1, end: 0.0, curve: Curves.easeOutCubic),
                     ],
                   ),
                 ),

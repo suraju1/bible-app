@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../providers/translate_quiz_provider.dart';
 import 'translation_success_dialog.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class TranslateFormScreen extends ConsumerStatefulWidget {
   final String taskId;
@@ -228,7 +229,7 @@ class _TranslateFormScreenState extends ConsumerState<TranslateFormScreen> {
                                   ),
                                 ),
                                 const SizedBox(height: 32),
-                              ],
+                              ].animate(interval: 50.ms).fade(duration: 400.ms, curve: Curves.easeOutCubic).slideY(begin: 0.05, end: 0.0, curve: Curves.easeOutCubic),
                             ),
                           ),
                         ),

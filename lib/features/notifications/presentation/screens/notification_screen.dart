@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../domain/entities/notification_item.dart';
 import '../providers/notification_provider.dart';
 import '../widgets/notification_card.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class NotificationScreen extends ConsumerWidget {
   const NotificationScreen({super.key});
@@ -125,7 +126,7 @@ class NotificationScreen extends ConsumerWidget {
                         if (today.isNotEmpty) _buildGroup('Today', today, ref),
                         if (yesterday.isNotEmpty) _buildGroup('Yesterday', yesterday, ref),
                         if (older.isNotEmpty) _buildGroup('Older', older, ref),
-                      ],
+                      ].animate(interval: 50.ms).fade(duration: 400.ms, curve: Curves.easeOutCubic).slideY(begin: 0.05, end: 0.0, curve: Curves.easeOutCubic),
                     );
                   },
                 ),

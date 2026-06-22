@@ -5,6 +5,7 @@ import '../providers/correction_quiz_provider.dart';
 import '../widgets/user_feedback_card.dart';
 import '../widgets/correction_field_section.dart';
 import 'correction_success_dialog.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class CorrectionFormScreen extends ConsumerStatefulWidget {
   final String taskId;
@@ -241,7 +242,7 @@ class _CorrectionFormScreenState extends ConsumerState<CorrectionFormScreen> {
                                   ),
                                 ),
                                 const SizedBox(height: 32),
-                              ],
+                              ].animate(interval: 50.ms).fade(duration: 400.ms, curve: Curves.easeOutCubic).slideY(begin: 0.05, end: 0.0, curve: Curves.easeOutCubic),
                             ),
                           ),
                         ),

@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import '../providers/report_issue_provider.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class ReportIssueScreen extends ConsumerStatefulWidget {
   const ReportIssueScreen({super.key});
@@ -417,7 +418,7 @@ class _ReportIssueScreenState extends ConsumerState<ReportIssueScreen> {
                                 ),
                               ),
                               const SizedBox(height: 20),
-                            ],
+                            ].animate(interval: 50.ms).fade(duration: 400.ms, curve: Curves.easeOutCubic).slideY(begin: 0.05, end: 0.0, curve: Curves.easeOutCubic),
                           ),
                         ),
                       ),

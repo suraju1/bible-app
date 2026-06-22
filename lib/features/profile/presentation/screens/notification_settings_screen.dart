@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../providers/notification_settings_provider.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class NotificationSettingsScreen extends ConsumerWidget {
   const NotificationSettingsScreen({super.key});
@@ -108,7 +109,7 @@ class NotificationSettingsScreen extends ConsumerWidget {
                                     ref.read(notificationSettingsProvider.notifier).toggleSound(val);
                                   },
                                 ),
-                              ],
+                              ].animate(interval: 50.ms).fade(duration: 400.ms, curve: Curves.easeOutCubic).slideY(begin: 0.05, end: 0.0, curve: Curves.easeOutCubic),
                             ),
                           );
                         },

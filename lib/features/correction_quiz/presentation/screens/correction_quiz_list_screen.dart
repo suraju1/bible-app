@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../providers/correction_quiz_provider.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class CorrectionQuizListScreen extends ConsumerWidget {
   const CorrectionQuizListScreen({super.key});
@@ -144,7 +145,7 @@ class CorrectionQuizListScreen extends ConsumerWidget {
                                     ),
                                   ),
                                 ),
-                              );
+                              ).animate(delay: (index * 50).ms).fade(duration: 400.ms, curve: Curves.easeOutCubic).slideY(begin: 0.05, end: 0.0, curve: Curves.easeOutCubic);
                             },
                           );
                         },

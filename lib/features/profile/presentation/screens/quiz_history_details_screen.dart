@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../domain/models/quiz_history_model.dart';
 import '../providers/quiz_history_provider.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class QuizHistoryDetailsScreen extends ConsumerWidget {
   final String quizId;
@@ -172,7 +173,7 @@ class QuizHistoryDetailsScreen extends ConsumerWidget {
                                   _buildReferenceBox(context, details.reference!),
 
                                 const SizedBox(height: 40),
-                              ],
+                              ].animate(interval: 50.ms).fade(duration: 400.ms, curve: Curves.easeOutCubic).slideY(begin: 0.05, end: 0.0, curve: Curves.easeOutCubic),
                             ),
                           );
                         },

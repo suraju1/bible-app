@@ -42,6 +42,25 @@ import '../../features/profile/presentation/screens/help_center_screen.dart';
 import '../../features/profile/presentation/screens/help_article_details_screen.dart';
 import '../../features/profile/domain/models/help_support_model.dart';
 import '../../features/profile/presentation/screens/terms_conditions_screen.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+
+CustomTransitionPage<T> buildPageWithTransition<T>({
+  required BuildContext context,
+  required GoRouterState state,
+  required Widget child,
+}) {
+  return CustomTransitionPage<T>(
+    key: state.pageKey,
+    child: child,
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      return child
+          .animate(key: ValueKey(state.pageKey))
+          .fade(duration: 300.ms, curve: Curves.easeOutCubic)
+          .slideX(begin: 0.05, end: 0.0, duration: 300.ms, curve: Curves.easeOutCubic);
+    },
+  );
+}
 
 // Provide the GoRouter instance
 final routerProvider = Provider<GoRouter>((ref) {
@@ -51,159 +70,159 @@ final routerProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(
         path: '/splash',
-        builder: (context, state) => const SplashScreen(),
+        builder: (context, state) => const SplashScreen(), // Splash usually doesn't need slide transition from nothing
       ),
       GoRoute(
         path: '/language-selection',
-        builder: (context, state) => const LanguageSelectionScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const LanguageSelectionScreen()),
       ),
       GoRoute(
         path: '/expertise-selection',
-        builder: (context, state) => const ExpertiseSelectionScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const ExpertiseSelectionScreen()),
       ),
       GoRoute(
         path: '/auth-selection',
-        builder: (context, state) => const AuthSelectionScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const AuthSelectionScreen()),
       ),
       GoRoute(
         path: '/login',
-        builder: (context, state) => const LoginScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const LoginScreen()),
       ),
       GoRoute(
         path: '/sign-up',
-        builder: (context, state) => const SignUpScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const SignUpScreen()),
       ),
       GoRoute(
         path: '/home',
-        builder: (context, state) => const HomeScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const HomeScreen()),
       ),
       GoRoute(
         path: '/quiz-categories',
-        builder: (context, state) => const QuizCategoriesScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const QuizCategoriesScreen()),
       ),
       GoRoute(
         path: '/notifications',
-        builder: (context, state) => const NotificationScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const NotificationScreen()),
       ),
       GoRoute(
         path: '/battles',
-        builder: (context, state) => const BattlesScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const BattlesScreen()),
       ),
       GoRoute(
         path: '/create-group',
-        builder: (context, state) => const CreateGroupScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const CreateGroupScreen()),
       ),
       GoRoute(
         path: '/group-action/:id',
-        builder: (context, state) => GroupActionScreen(groupId: state.pathParameters['id']!),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: GroupActionScreen(groupId: state.pathParameters['id']!)),
       ),
       GoRoute(
         path: '/group-details/:id',
-        builder: (context, state) => GroupDetailsScreen(groupId: state.pathParameters['id']!),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: GroupDetailsScreen(groupId: state.pathParameters['id']!)),
       ),
       GoRoute(
         path: '/group-leaderboard/:id',
-        builder: (context, state) => GroupLeaderboardScreen(groupId: state.pathParameters['id']!),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: GroupLeaderboardScreen(groupId: state.pathParameters['id']!)),
       ),
       GoRoute(
         path: '/translate-quiz-list',
-        builder: (context, state) => const TranslateQuizListScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const TranslateQuizListScreen()),
       ),
       GoRoute(
         path: '/translate-form/:id',
-        builder: (context, state) => TranslateFormScreen(taskId: state.pathParameters['id']!),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: TranslateFormScreen(taskId: state.pathParameters['id']!)),
       ),
       GoRoute(
         path: '/correction-quiz-list',
-        builder: (context, state) => const CorrectionQuizListScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const CorrectionQuizListScreen()),
       ),
       GoRoute(
         path: '/correction-form/:id',
-        builder: (context, state) => CorrectionFormScreen(taskId: state.pathParameters['id']!),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: CorrectionFormScreen(taskId: state.pathParameters['id']!)),
       ),
       GoRoute(
         path: '/quiz-mode-selection',
-        builder: (context, state) => const QuizModeSelectionScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const QuizModeSelectionScreen()),
       ),
       GoRoute(
         path: '/quiz-type-selection',
-        builder: (context, state) => const QuizTypeSelectionScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const QuizTypeSelectionScreen()),
       ),
       GoRoute(
         path: '/play-quiz',
-        builder: (context, state) => const PlayQuizScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const PlayQuizScreen()),
       ),
       GoRoute(
         path: '/create-quiz',
-        builder: (context, state) => const CreateQuizScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const CreateQuizScreen()),
       ),
       GoRoute(
         path: '/profile/my-profile',
-        builder: (context, state) => const MyProfileScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const MyProfileScreen()),
       ),
       GoRoute(
         path: '/profile/achievements',
-        builder: (context, state) => const AchievementsScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const AchievementsScreen()),
       ),
       GoRoute(
         path: '/profile/rewards',
-        builder: (context, state) => const RewardsScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const RewardsScreen()),
       ),
       GoRoute(
         path: '/profile/history',
-        builder: (context, state) => const QuizHistoryScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const QuizHistoryScreen()),
       ),
       GoRoute(
         path: '/profile/history-details/:id',
-        builder: (context, state) => QuizHistoryDetailsScreen(quizId: state.pathParameters['id']!),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: QuizHistoryDetailsScreen(quizId: state.pathParameters['id']!)),
       ),
       GoRoute(
         path: '/profile/referral',
-        builder: (context, state) => const ReferralScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const ReferralScreen()),
       ),
       GoRoute(
         path: '/profile/theme',
-        builder: (context, state) => const ThemeSettingsScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const ThemeSettingsScreen()),
       ),
       GoRoute(
         path: '/profile/notifications',
-        builder: (context, state) => const NotificationSettingsScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const NotificationSettingsScreen()),
       ),
       GoRoute(
         path: '/profile/language',
-        builder: (context, state) => const LanguageSettingsScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const LanguageSettingsScreen()),
       ),
       GoRoute(
         path: '/profile/help',
-        builder: (context, state) => const HelpSupportScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const HelpSupportScreen()),
       ),
       GoRoute(
         path: '/profile/help/faq',
-        builder: (context, state) => const FaqScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const FaqScreen()),
       ),
       GoRoute(
         path: '/profile/help/report-issue',
-        builder: (context, state) => const ReportIssueScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const ReportIssueScreen()),
       ),
       GoRoute(
         path: '/profile/help/feedback',
-        builder: (context, state) => const FeedbackScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const FeedbackScreen()),
       ),
       GoRoute(
         path: '/profile/help/help-center',
-        builder: (context, state) => const HelpCenterScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const HelpCenterScreen()),
       ),
       GoRoute(
         path: '/profile/help/article',
-        builder: (context, state) => HelpArticleDetailsScreen(article: state.extra as HelpArticleModel),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: HelpArticleDetailsScreen(article: state.extra as HelpArticleModel)),
       ),
       GoRoute(
         path: '/profile/support',
-        builder: (context, state) => const HelpSupportScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const HelpSupportScreen()),
       ),
       GoRoute(
         path: '/profile/terms',
-        builder: (context, state) => const TermsConditionsScreen(),
+        pageBuilder: (context, state) => buildPageWithTransition(context: context, state: state, child: const TermsConditionsScreen()),
       ),
     ],
   );

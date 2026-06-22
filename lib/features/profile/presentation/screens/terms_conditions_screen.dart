@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../providers/terms_condition_provider.dart';
 import '../../domain/models/terms_condition_model.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class TermsConditionsScreen extends ConsumerWidget {
   const TermsConditionsScreen({super.key});
@@ -91,7 +92,7 @@ class TermsConditionsScreen extends ConsumerWidget {
                             padding: const EdgeInsets.all(24.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: sections.map((section) => _buildSection(context, section)).toList(),
+                              children: sections.map((section) => _buildSection(context, section)).toList().animate(interval: 50.ms).fade(duration: 400.ms, curve: Curves.easeOutCubic).slideY(begin: 0.05, end: 0.0, curve: Curves.easeOutCubic),
                             ),
                           );
                         },

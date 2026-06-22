@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
@@ -164,7 +165,7 @@ class ProfileScreen extends ConsumerWidget {
                               title: 'Terms & Conditions',
                               onTap: () => context.push('/profile/terms'),
                             ),
-                          ],
+                          ].animate(interval: 50.ms).fade(duration: 400.ms, curve: Curves.easeOutCubic).slideX(begin: 0.1, end: 0.0, curve: Curves.easeOutCubic),
                         ),
                       ),
                     ),

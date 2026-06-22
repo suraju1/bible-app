@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../providers/language_settings_provider.dart';
 import '../../../language_selection/data/models/language_model.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class LanguageSettingsScreen extends ConsumerStatefulWidget {
   const LanguageSettingsScreen({super.key});
@@ -150,7 +151,7 @@ class _LanguageSettingsScreenState extends ConsumerState<LanguageSettingsScreen>
                                         final isPrimary = lang.code == state.primaryLanguageCode;
                                         return _buildLanguageCard(context, lang, isPrimary, notifier);
                                       }).toList(),
-                                    ],
+                                    ].animate(interval: 50.ms).fade(duration: 400.ms, curve: Curves.easeOutCubic).slideY(begin: 0.05, end: 0.0, curve: Curves.easeOutCubic),
                                   ),
                                 ),
                     ),

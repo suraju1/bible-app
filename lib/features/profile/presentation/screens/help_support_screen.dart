@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class HelpSupportScreen extends ConsumerWidget {
   const HelpSupportScreen({super.key});
@@ -143,7 +144,7 @@ class HelpSupportScreen extends ConsumerWidget {
                                 ),
                               ],
                             ),
-                          ],
+                          ].animate(interval: 50.ms).fade(duration: 400.ms, curve: Curves.easeOutCubic).slideY(begin: 0.05, end: 0.0, curve: Curves.easeOutCubic),
                         ),
                       ),
                     ),

@@ -13,6 +13,7 @@ import '../../../challenge_group/presentation/screens/battles_screen.dart';
 import '../../../translate_quiz/presentation/screens/quiz_hub_screen.dart';
 import '../../../profile/presentation/screens/profile_screen.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -500,7 +501,7 @@ class _DashboardTabViewState extends ConsumerState<_DashboardTabView> {
 
               // Final bottom padding for center FAB clearance
               const SizedBox(height: 140),
-            ],
+            ].animate(interval: 60.ms).fade(duration: 400.ms, curve: Curves.easeOutCubic).slideY(begin: 0.05, end: 0.0, curve: Curves.easeOutCubic),
           ),
         );
       },

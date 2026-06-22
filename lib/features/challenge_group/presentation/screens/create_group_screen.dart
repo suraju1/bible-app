@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class CreateGroupScreen extends StatefulWidget {
   const CreateGroupScreen({super.key});
@@ -181,7 +182,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                         ),
                       ),
                       const SizedBox(height: 32),
-                    ],
+                    ].animate(interval: 50.ms).fade(duration: 400.ms, curve: Curves.easeOutCubic).slideY(begin: 0.05, end: 0.0, curve: Curves.easeOutCubic),
                   ),
                 ),
               ),

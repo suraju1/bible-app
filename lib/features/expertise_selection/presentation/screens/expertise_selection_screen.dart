@@ -8,6 +8,7 @@ import '../../../language_selection/presentation/providers/language_provider.dar
 import '../../domain/entities/bible_version.dart';
 import '../providers/expertise_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 
 class ExpertiseSelectionScreen extends ConsumerStatefulWidget {
@@ -137,7 +138,7 @@ class _ExpertiseSelectionScreenState extends ConsumerState<ExpertiseSelectionScr
                     const SizedBox(height: 20),
                     _buildAgeSection(context, ref),
                     const SizedBox(height: 40),
-                  ],
+                  ].animate(interval: 60.ms).fade(duration: 400.ms, curve: Curves.easeOutCubic).slideY(begin: 0.05, end: 0.0, curve: Curves.easeOutCubic),
                 ),
               ),
             ),

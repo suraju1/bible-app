@@ -6,6 +6,7 @@ import '../providers/profile_provider.dart';
 import '../providers/achievement_provider.dart';
 import '../widgets/rank_badge_widget.dart';
 import '../widgets/statistic_card_widget.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class AchievementsScreen extends ConsumerWidget {
   const AchievementsScreen({super.key});
@@ -259,7 +260,7 @@ class AchievementsScreen extends ConsumerWidget {
                                     ),
                                   ],
                                 ),
-                              ],
+                              ].animate(interval: 50.ms).fade(duration: 400.ms, curve: Curves.easeOutCubic).slideY(begin: 0.1, end: 0.0, curve: Curves.easeOutCubic),
                             ),
                           ),
                         ),

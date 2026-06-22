@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../providers/challenge_group_provider.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class BattlesScreen extends ConsumerStatefulWidget {
   const BattlesScreen({super.key});
@@ -218,7 +219,7 @@ class _BattlesScreenState extends ConsumerState<BattlesScreen> {
             },
           ),
         ),
-      ],
+      ].animate(interval: 50.ms).fade(duration: 400.ms, curve: Curves.easeOutCubic).slideX(begin: 0.05, end: 0.0, curve: Curves.easeOutCubic),
     );
   }
 
@@ -317,7 +318,7 @@ class _BattlesScreenState extends ConsumerState<BattlesScreen> {
             },
           ),
           const SizedBox(height: 100), // Bottom padding for nav bar
-        ],
+        ].animate(interval: 60.ms).fade(duration: 400.ms, curve: Curves.easeOutCubic).slideY(begin: 0.05, end: 0.0, curve: Curves.easeOutCubic),
       ),
     );
   }

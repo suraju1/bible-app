@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../providers/dashboard_provider.dart';
 import '../widgets/category_card.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class QuizCategoriesScreen extends ConsumerWidget {
   const QuizCategoriesScreen({super.key});
@@ -94,7 +95,7 @@ class QuizCategoriesScreen extends ConsumerWidget {
                             }
                             // Add other tap behaviors if needed
                           },
-                        );
+                        ).animate(delay: (index * 50).ms).fade(duration: 400.ms, curve: Curves.easeOutCubic).slideY(begin: 0.05, end: 0.0, curve: Curves.easeOutCubic);
                       },
                     );
                   },

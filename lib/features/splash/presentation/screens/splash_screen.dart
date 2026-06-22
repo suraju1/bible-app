@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_assets.dart';
 import '../providers/splash_provider.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class SplashScreen extends ConsumerWidget {
   const SplashScreen({super.key});
@@ -38,7 +39,7 @@ class SplashScreen extends ConsumerWidget {
             AppAssets.logo,
             width: 250, // Adjust width based on visual preference
             fit: BoxFit.contain,
-          ),
+          ).animate().fade(duration: 800.ms, curve: Curves.easeIn).scale(begin: const Offset(0.8, 0.8), curve: Curves.easeOutBack, duration: 800.ms),
         ),
       ),
     );

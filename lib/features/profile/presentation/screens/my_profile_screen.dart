@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../providers/profile_provider.dart';
 import '../widgets/custom_profile_text_field.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class MyProfileScreen extends ConsumerStatefulWidget {
   const MyProfileScreen({super.key});
@@ -365,7 +366,7 @@ class _MyProfileScreenState extends ConsumerState<MyProfileScreen> {
                               ),
                               
                               const SizedBox(height: 40),
-                            ],
+                            ].animate(interval: 50.ms).fade(duration: 400.ms, curve: Curves.easeOutCubic).slideY(begin: 0.05, end: 0.0, curve: Curves.easeOutCubic),
                           ),
                         ),
                       ),
