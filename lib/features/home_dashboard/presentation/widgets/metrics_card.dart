@@ -50,18 +50,22 @@ class MetricsCard extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          const Icon(
-                            Icons.emoji_events,
-                            color: Color(0xFF90A4AE), // Silver/blue-grey trophy color
-                            size: 22,
+                          Image.asset(
+                            _getRankAsset(_getRankName(level)),
+                            width: 24,
+                            height: 24,
                           ),
                           const SizedBox(width: 6),
-                          Text(
-                            '$rank',
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w900,
-                              color: Color(0xFF2C3E50),
+                          Flexible(
+                            child: Text(
+                              _getRankName(level),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w900,
+                                color: Color(0xFF2C3E50),
+                              ),
                             ),
                           ),
                         ],
@@ -219,6 +223,35 @@ class MetricsCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  String _getRankName(int currentLevel) {
+    if (currentLevel >= 100) return 'Legend';
+    if (currentLevel >= 80) return 'Champion';
+    if (currentLevel >= 70) return 'Elite';
+    if (currentLevel >= 60) return 'Grand Master';
+    if (currentLevel >= 50) return 'Master';
+    if (currentLevel >= 40) return 'Diamond';
+    if (currentLevel >= 30) return 'Platinum';
+    if (currentLevel >= 20) return 'Gold';
+    if (currentLevel >= 10) return 'Silver';
+    return 'Bronze';
+  }
+
+  String _getRankAsset(String rankName) {
+    switch (rankName.toLowerCase()) {
+      case 'bronze': return 'assets/images/bronze.png';
+      case 'silver': return 'assets/images/silver.png';
+      case 'gold': return 'assets/images/gold.png';
+      case 'platinum': return 'assets/images/platinum.png';
+      case 'diamond': return 'assets/images/dimond.png';
+      case 'master': return 'assets/images/master.png';
+      case 'grand master': return 'assets/images/grand_master.png';
+      case 'elite': return 'assets/images/elite.png';
+      case 'champion': return 'assets/images/champion.png';
+      case 'legend': return 'assets/images/legend.png';
+      default: return 'assets/images/bronze.png';
+    }
   }
 }
 

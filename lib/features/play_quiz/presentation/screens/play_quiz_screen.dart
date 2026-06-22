@@ -82,6 +82,7 @@ class PlayQuizScreen extends ConsumerWidget {
             ),
           ),
           SafeArea(
+            bottom: false,
             child: Column(
               children: [
                 // Top Bar
@@ -188,7 +189,12 @@ class PlayQuizScreen extends ConsumerWidget {
                 // Options and Actions Card
                 Container(
                   width: double.infinity,
-                  padding: const EdgeInsets.all(24.0),
+                  padding: EdgeInsets.only(
+                    left: 24.0,
+                    right: 24.0,
+                    top: 24.0,
+                    bottom: 24.0 + MediaQuery.of(context).padding.bottom,
+                  ),
                   decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
@@ -224,7 +230,7 @@ class PlayQuizScreen extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           BottomActionButton(
-                            icon: Icons.find_in_page_outlined,
+                            iconPath: 'assets/icons/play_quiz/play_quiz_reference.png',
                             cost: 50,
                             onTap: () {
                               if (controller.canAfford(50)) {
@@ -236,31 +242,43 @@ class PlayQuizScreen extends ConsumerWidget {
                                   explanation: currentQuestion.explanation,
                                   correctAnswer: currentQuestion.options.firstWhere((o) => o.id == currentQuestion.correctOptionId).text,
                                 ));
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('Not enough coins!'), duration: Duration(seconds: 2)),
+                                );
                               }
                             },
                           ),
                           BottomActionButton(
-                            icon: Icons.check,
+                            iconPath: 'assets/icons/play_quiz/play_quiz_correct.png',
                             cost: 50,
                             onTap: () {
                               if (controller.canAfford(50)) {
                                 controller.deductCoins(50);
                                 controller.selectOption(currentQuestion.correctOptionId);
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('Not enough coins!'), duration: Duration(seconds: 2)),
+                                );
                               }
                             },
                           ),
                           BottomActionButton(
-                            icon: Icons.close,
+                            iconPath: 'assets/icons/play_quiz/play_quiz_wrong.png',
                             cost: 50,
                             onTap: () {
                               if (controller.canAfford(50)) {
                                 controller.deductCoins(50);
                                 controller.skipQuestion();
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('Not enough coins!'), duration: Duration(seconds: 2)),
+                                );
                               }
                             },
                           ),
                           BottomActionButton(
-                            icon: Icons.chat_bubble_outline,
+                            iconPath: 'assets/icons/play_quiz/play_quiz_message.png',
                             cost: 50,
                             onTap: () {
                               if (controller.canAfford(50)) {
@@ -270,6 +288,10 @@ class PlayQuizScreen extends ConsumerWidget {
                                   answerText: currentQuestion.explanation,
                                   optionsText: currentQuestion.options.map((o) => '${o.id}. ${o.text}').join('\n'),
                                 ));
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(content: Text('Not enough coins!'), duration: Duration(seconds: 2)),
+                                );
                               }
                             },
                           ),

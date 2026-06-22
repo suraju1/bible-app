@@ -32,35 +32,16 @@ class LeaderboardScreen extends ConsumerWidget {
             bottom: false,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-              child: Row(
-                children: [
-                  // Circular back button
-                  Container(
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Colors.black.withOpacity(0.15),
-                    ),
-                    child: IconButton(
-                      icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 20),
-                      onPressed: () {
-                        // Assuming GoRouter pop or equivalent
-                        Navigator.of(context).maybePop();
-                      },
-                    ),
+              child: const Center(
+                child: Text(
+                  'Leader Board',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
-                  const Expanded(
-                    child: Text(
-                      'Leader Board',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),
-                  const SizedBox(width: 48), // To balance the back button
-                ],
+                ),
               ),
             ),
           ),

@@ -12,6 +12,7 @@ import '../../../leaderboard/presentation/screens/leaderboard_screen.dart';
 import '../../../challenge_group/presentation/screens/battles_screen.dart';
 import '../../../translate_quiz/presentation/screens/quiz_hub_screen.dart';
 import '../../../profile/presentation/screens/profile_screen.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -95,14 +96,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   children: [
                     _buildTabItem(
                       index: 0,
-                      icon: Icons.home_outlined,
-                      activeIcon: Icons.home,
+                      assetPath: 'assets/icons/home_nav_bar.png',
                       label: 'Home',
                     ),
                     _buildTabItem(
                       index: 1,
-                      icon: Icons.edit_note, // Pencil/crossed pencil-like icon
-                      activeIcon: Icons.edit_document,
+                      assetPath: 'assets/icons/challenges_nav_bar.png',
                       label: 'Challenge',
                     ),
                   ],
@@ -117,14 +116,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   children: [
                     _buildTabItem(
                       index: 3,
-                      icon: Icons.leaderboard_outlined,
-                      activeIcon: Icons.bar_chart,
+                      assetPath: 'assets/icons/rank_nav_bar.png',
                       label: 'Rank',
                     ),
                     _buildTabItem(
                       index: 4,
-                      icon: Icons.person_outline,
-                      activeIcon: Icons.person,
+                      assetPath: 'assets/icons/profile_nav_bar.png',
                       label: 'Profile',
                     ),
                   ],
@@ -156,8 +153,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
   Widget _buildTabItem({
     required int index,
-    required IconData icon,
-    required IconData activeIcon,
+    required String assetPath,
     required String label,
   }) {
     final isActive = _currentTab == index;
@@ -173,7 +169,12 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(isActive ? activeIcon : icon, color: color, size: 24),
+          Image.asset(
+            assetPath,
+            width: 24,
+            height: 24,
+            color: color,
+          ),
           const SizedBox(height: 3),
           Text(
             label,
@@ -190,11 +191,18 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 }
 
 /// The main Home Dashboard View (Caroline Hugo profile + challenge + categories)
-class _DashboardTabView extends ConsumerWidget {
+class _DashboardTabView extends ConsumerStatefulWidget {
   const _DashboardTabView();
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<_DashboardTabView> createState() => _DashboardTabViewState();
+}
+
+class _DashboardTabViewState extends ConsumerState<_DashboardTabView> {
+  int _currentCarouselIndex = 0;
+
+  @override
+  Widget build(BuildContext context) {
     final dashboardState = ref.watch(dashboardDataProvider);
 
     return dashboardState.when(
@@ -384,27 +392,53 @@ class _DashboardTabView extends ConsumerWidget {
               // Today's Challenge Section
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Today's Challenge",
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w900,
-                        color: Color(0xFF2C3E50),
-                      ),
+                child: const Text(
+                  "Today's Challenge",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w900,
+                    color: Color(0xFF2C3E50),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 14),
+              CarouselSlider(
+                options: CarouselOptions(
+                  height: 225,
+                  autoPlay: true,
+                  enlargeCenterPage: true,
+                  enlargeStrategy: CenterPageEnlargeStrategy.zoom,
+                  viewportFraction: 0.85,
+                  autoPlayInterval: const Duration(seconds: 4),
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _currentCarouselIndex = index;
+                    });
+                  },
+                ),
+                items: [
+                  _buildImageBanner('assets/images/1_learn_daily_banner.png'),
+                  _buildImageBanner('assets/images/focous_today_achive_tommarow-removebg-preview.png'),
+                  _buildImageBanner('assets/images/test_your_knowledge_banner-removebg-preview.png'),
+                  _buildImageBanner('assets/images/2_stay.png'),
+                ],
+              ),
+              const SizedBox(height: 12),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(
+                  4,
+                  (index) => Container(
+                    width: _currentCarouselIndex == index ? 24.0 : 8.0,
+                    height: 8.0,
+                    margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(4.0),
+                      color: _currentCarouselIndex == index
+                          ? const Color(0xFF01369F)
+                          : Colors.grey.shade300,
                     ),
-                    const SizedBox(height: 14),
-                    ChallengeCard(
-                      title: data.todayChallenge.title,
-                      description: data.todayChallenge.description,
-                      progress: data.todayChallenge.progress,
-                      onStart: () {
-                        // Start quiz action
-                      },
-                    ),
-                  ],
+                  ),
                 ),
               ),
 
@@ -429,7 +463,7 @@ class _DashboardTabView extends ConsumerWidget {
                         ),
                         TextButton(
                           onPressed: () {
-                            // View all action
+                            context.push('/quiz-categories');
                           },
                           child: const Text(
                             "View All",
@@ -470,6 +504,32 @@ class _DashboardTabView extends ConsumerWidget {
           ),
         );
       },
+    );
+  }
+
+  Widget _buildImageBanner(String imagePath) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(horizontal: 6.0),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(28),
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFF01369F).withValues(alpha: 0.15),
+            blurRadius: 12,
+            spreadRadius: 1,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(28),
+        child: Image.asset(
+          imagePath,
+          fit: BoxFit.cover,
+        ),
+      ),
     );
   }
 }

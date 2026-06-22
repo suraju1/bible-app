@@ -36,33 +36,11 @@ class ProfileScreen extends ConsumerWidget {
                   // Top Bar
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                    child: Row(
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            if (context.canPop()) {
-                              context.pop();
-                            }
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(8),
-                            decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.2),
-                              shape: BoxShape.circle,
-                            ),
-                            child: const Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 16),
-                          ),
-                        ),
-                        const Expanded(
-                          child: Center(
-                            child: Text(
-                              'Profile',
-                              style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 32), // Balance the back button
-                      ],
+                    child: const Center(
+                      child: Text(
+                        'Profile',
+                        style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ),
                   
@@ -137,52 +115,52 @@ class ProfileScreen extends ConsumerWidget {
                           padding: const EdgeInsets.only(top: 24.0, left: 24.0, right: 24.0, bottom: 100.0), // bottom padding for nav bar
                           children: [
                             ProfileMenuItem(
-                              icon: Icons.person_outline,
+                              iconPath: 'assets/icons/profile_screen_icons/my_profile.png',
                               title: 'My Profile',
                               onTap: () => context.push('/profile/my-profile'),
                             ),
                             ProfileMenuItem(
-                              icon: Icons.emoji_events_outlined,
+                              iconPath: 'assets/icons/profile_screen_icons/achievements.png',
                               title: 'Achievements',
                               onTap: () => context.push('/profile/achievements'),
                             ),
                             ProfileMenuItem(
-                              icon: Icons.card_giftcard,
+                              iconPath: 'assets/icons/profile_screen_icons/rewards.png',
                               title: 'Rewards',
                               onTap: () => context.push('/profile/rewards'),
                             ),
                             ProfileMenuItem(
-                              icon: Icons.history,
+                              iconPath: 'assets/icons/profile_screen_icons/quiz_history.png',
                               title: 'Quiz History',
                               onTap: () => context.push('/profile/history'),
                             ),
                             ProfileMenuItem(
-                              icon: Icons.people_outline,
+                              iconPath: 'assets/icons/profile_screen_icons/refer_and_earn.png',
                               title: 'Refer & Get Points',
                               onTap: () => context.push('/profile/referral'),
                             ),
                             ProfileMenuItem(
-                              icon: Icons.brightness_6_outlined,
+                              iconPath: 'assets/icons/profile_screen_icons/app_theme.png',
                               title: 'App Theme',
                               onTap: () => context.push('/profile/theme'),
                             ),
                             ProfileMenuItem(
-                              icon: Icons.notifications_none,
+                              iconPath: 'assets/icons/profile_screen_icons/notification.png',
                               title: 'Notifications Settings',
                               onTap: () => context.push('/profile/notifications'),
                             ),
                             ProfileMenuItem(
-                              icon: Icons.language,
+                              iconPath: 'assets/icons/profile_screen_icons/languages.png',
                               title: 'Language Settings',
                               onTap: () => context.push('/profile/language'),
                             ),
                             ProfileMenuItem(
-                              icon: Icons.help_outline,
+                              iconPath: 'assets/icons/profile_screen_icons/help_and_support.png',
                               title: 'Help & Support',
                               onTap: () => context.push('/profile/support'),
                             ),
                             ProfileMenuItem(
-                              icon: Icons.verified_user_outlined,
+                              iconPath: 'assets/icons/profile_screen_icons/terms_and_conditions.png',
                               title: 'Terms & Conditions',
                               onTap: () => context.push('/profile/terms'),
                             ),

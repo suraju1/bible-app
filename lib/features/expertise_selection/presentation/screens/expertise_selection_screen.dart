@@ -206,19 +206,42 @@ class _ExpertiseSelectionScreenState extends ConsumerState<ExpertiseSelectionScr
                 final lang = entry.value;
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 12.0),
-                  child: GestureDetector(
-                    onTap: () => _showLanguagePicker(context, ref, index),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24), border: Border.all(color: Colors.grey.shade300)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(lang?.name ?? 'Select Language', style: TextStyle(color: lang != null ? AppColors.textPrimary : Colors.grey)),
-                          const Icon(Icons.arrow_drop_down, color: Colors.grey),
-                        ],
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () => _showLanguagePicker(context, ref, index),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24), border: Border.all(color: Colors.grey.shade300)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    lang?.name ?? 'Select Language',
+                                    style: TextStyle(color: lang != null ? AppColors.textPrimary : Colors.grey),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                const Icon(Icons.arrow_drop_down, color: Colors.grey),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                      if (index > 0) ...[
+                        const SizedBox(width: 8),
+                        GestureDetector(
+                          onTap: () {
+                            final current = List<Language?>.from(languages);
+                            current.removeAt(index);
+                            ref.read(expertiseLanguagesProvider.notifier).state = current;
+                          },
+                          child: const Icon(Icons.remove_circle_outline, color: Colors.redAccent),
+                        ),
+                      ],
+                    ],
                   ),
                 );
               }),
@@ -266,19 +289,42 @@ class _ExpertiseSelectionScreenState extends ConsumerState<ExpertiseSelectionScr
                 final ver = entry.value;
                 return Padding(
                   padding: const EdgeInsets.only(bottom: 12.0),
-                  child: GestureDetector(
-                    onTap: () => _showVersionPicker(context, ref, index),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24), border: Border.all(color: Colors.grey.shade300)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(ver?.name ?? 'Select Version', style: TextStyle(color: ver != null ? AppColors.textPrimary : Colors.grey)),
-                          const Icon(Icons.arrow_drop_down, color: Colors.grey),
-                        ],
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: GestureDetector(
+                          onTap: () => _showVersionPicker(context, ref, index),
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                            decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(24), border: Border.all(color: Colors.grey.shade300)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    ver?.name ?? 'Select Version',
+                                    style: TextStyle(color: ver != null ? AppColors.textPrimary : Colors.grey),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                const Icon(Icons.arrow_drop_down, color: Colors.grey),
+                              ],
+                            ),
+                          ),
+                        ),
                       ),
-                    ),
+                      if (index > 0) ...[
+                        const SizedBox(width: 8),
+                        GestureDetector(
+                          onTap: () {
+                            final current = List<BibleVersion?>.from(versions);
+                            current.removeAt(index);
+                            ref.read(expertiseVersionsProvider.notifier).state = current;
+                          },
+                          child: const Icon(Icons.remove_circle_outline, color: Colors.redAccent),
+                        ),
+                      ],
+                    ],
                   ),
                 );
               }),

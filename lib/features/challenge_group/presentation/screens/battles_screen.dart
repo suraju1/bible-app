@@ -32,31 +32,16 @@ class _BattlesScreenState extends ConsumerState<BattlesScreen> {
               bottom: false,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-                child: Row(
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.black.withOpacity(0.15),
-                      ),
-                      child: IconButton(
-                        icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white, size: 20),
-                        onPressed: () => context.pop(),
-                      ),
+                child: const Center(
+                  child: Text(
+                    'Battles',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
                     ),
-                    const Expanded(
-                      child: Text(
-                        'Battles',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 48),
-                  ],
+                  ),
                 ),
               ),
             ),
@@ -90,7 +75,7 @@ class _BattlesScreenState extends ConsumerState<BattlesScreen> {
                     
                     // Tab Content
                     if (_selectedTabIndex == 0)
-                      const Expanded(child: Center(child: Text('All Battles (Coming Soon)'))),
+                      Expanded(child: _buildAllTabContent(context)),
                     
                     if (_selectedTabIndex == 1)
                       Expanded(child: _buildJoinedTabContent(ref)),
@@ -234,6 +219,205 @@ class _BattlesScreenState extends ConsumerState<BattlesScreen> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildAllTabContent(BuildContext context) {
+    // Dummy data for trending and all groups
+    final trendingGroups = [
+      {'name': 'Global Bible Trivia', 'participants': 1250},
+      {'name': 'Sunday Special Battle', 'participants': 890},
+      {'name': 'New Testament Challenge', 'participants': 650},
+    ];
+
+    final allGroups = [
+      {'name': 'Daily Genesis Quiz', 'participants': 420},
+      {'name': 'Proverbs Masters', 'participants': 310},
+      {'name': 'Youth Ministry Quiz', 'participants': 150},
+      {'name': 'Bible Scholars Group', 'participants': 85},
+      {'name': 'Morning Devotion Battle', 'participants': 50},
+    ];
+
+    return SingleChildScrollView(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Trending Section
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            child: Row(
+              children: [
+                const Icon(Icons.local_fire_department, color: Colors.orange, size: 20),
+                const SizedBox(width: 8),
+                const Text(
+                  'Trending Groups',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF2C3E50),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 12),
+          SizedBox(
+            height: 150,
+            child: ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              scrollDirection: Axis.horizontal,
+              itemCount: trendingGroups.length,
+              itemBuilder: (context, index) {
+                final group = trendingGroups[index];
+                return Container(
+                  width: 260,
+                  margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                  child: _buildPublicGroupCard(
+                    context: context,
+                    name: group['name'] as String,
+                    participants: group['participants'] as int,
+                    isTrending: true,
+                  ),
+                );
+              },
+            ),
+          ),
+
+          const SizedBox(height: 24),
+
+          // All Groups Section
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            child: const Text(
+              'All Groups',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF2C3E50),
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
+          ListView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: allGroups.length,
+            itemBuilder: (context, index) {
+              final group = allGroups[index];
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 12.0),
+                child: _buildPublicGroupCard(
+                  context: context,
+                  name: group['name'] as String,
+                  participants: group['participants'] as int,
+                  isTrending: false,
+                ),
+              );
+            },
+          ),
+          const SizedBox(height: 100), // Bottom padding for nav bar
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPublicGroupCard({
+    required BuildContext context,
+    required String name,
+    required int participants,
+    required bool isTrending,
+  }) {
+    return Container(
+      padding: const EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.grey.shade300),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.02),
+            blurRadius: 4,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: isTrending ? Colors.orange.shade50 : const Color(0xFFE8F0FE),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  isTrending ? Icons.whatshot : Icons.public,
+                  color: isTrending ? Colors.orange : AppColors.primary,
+                  size: 20,
+                ),
+              ),
+              const SizedBox(width: 12),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF2C3E50),
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      '👤 $participants Joined',
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: Colors.grey.shade600,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          SizedBox(
+            width: double.infinity,
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: AppColors.primaryGradient,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: ElevatedButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text('Successfully joined $name!')),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  shadowColor: Colors.transparent,
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  elevation: 0,
+                ),
+                child: const Text('Join', style: TextStyle(fontWeight: FontWeight.bold)),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

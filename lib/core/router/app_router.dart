@@ -7,6 +7,7 @@ import '../../features/auth/presentation/screens/auth_selection_screen.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/auth/presentation/screens/sign_up_screen.dart';
 import '../../features/home_dashboard/presentation/screens/home_screen.dart';
+import '../../features/home_dashboard/presentation/screens/quiz_categories_screen.dart';
 import '../../features/notifications/presentation/screens/notification_screen.dart';
 import '../../features/challenge_group/presentation/screens/battles_screen.dart';
 import '../../features/challenge_group/presentation/screens/create_group_screen.dart';
@@ -75,6 +76,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/home',
         builder: (context, state) => const HomeScreen(),
+      ),
+      GoRoute(
+        path: '/quiz-categories',
+        builder: (context, state) => const QuizCategoriesScreen(),
       ),
       GoRoute(
         path: '/notifications',

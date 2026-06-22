@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ProfileMenuItem extends StatelessWidget {
-  final IconData icon;
+  final String iconPath;
   final String title;
   final VoidCallback onTap;
 
   const ProfileMenuItem({
     super.key,
-    required this.icon,
+    required this.iconPath,
     required this.title,
     required this.onTap,
   });
@@ -34,7 +34,7 @@ class ProfileMenuItem extends StatelessWidget {
                   color: Colors.blue.shade50,
                   shape: BoxShape.circle,
                 ),
-                child: Icon(icon, color: const Color(0xFF4A72B2), size: 20),
+                child: Image.asset(iconPath, width: 24, height: 24),
               ),
               const SizedBox(width: 16),
               Expanded(
